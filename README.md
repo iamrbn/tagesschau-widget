@@ -46,7 +46,7 @@ Der User bekommt nach dem Script Update auf GitHub eine benachrichtigung das es 
 
 <h2 style="font-size:1"
 <p align="center" style="font-size:10vw">
-   <a href="https://github.com/iamrbn/Reddit-Widget/blob/main/README.md#reddit-user-widget-for-scriptable-"> ⬆️ Nach Oben Springen </a>
+   <a href="https://github.com/iamrbn/tagesschau-widget/blob/main/README.md#tagesschau-widget-for-scriptable-"> ⬆️ Nach Oben Springen </a>
 </p>
 </h2>
  
