@@ -51,9 +51,6 @@ Der User bekommt nach dem Script Update auf GitHub eine benachrichtigung das es 
 </h2>
  
 <p align="center">
-  <a href="https://reddit.com/user/hrb7/">
-    <img title="My first reddit account @hrb7" src="https://github.com/iamrbn/slack-status/blob/main/Images/Badges/apollo_black.png" width="150"/>
-  </a>
   <a href="https://reddit.com/user/iamrbn/">
     <img title="My second Reddit @iamrbn" src="https://github.com/iamrbn/slack-status/blob/08d06ec886dcef950a8acbf4983940ad7fb8bed9/Images/Badges/reddit_black_iamrbn.png" width="150"/>
   </a>
