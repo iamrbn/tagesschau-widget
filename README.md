@@ -6,17 +6,15 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 
 ## Widget übersicht 👀
 
-## Features ✨
+<img title="Overview Widget" src="" width="500"/>
 
+## Features ✨
 
 ### Verfügbare widget größen
 - small
 - medium
 - large
 - extra large (_iPadOS15 und höher_)
-
-<img title="Overview Widget" src="" width="500"/>
-
 
 ### Widget Parameter
 Wenn im jeweiligen Widget Parametern der Begriff "app" eingetragen wird, werden beiträge aus diesem widget in der [tagesschau-app](https://apps.apple.com/de/app/tagesschau-nachrichten/id401644893) geöffnet.
