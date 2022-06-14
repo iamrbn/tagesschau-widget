@@ -1,6 +1,6 @@
-# <img title="tagesschau icon" src="https://www.tagesschau.de/res/assets/image/favicon/favicon.ico" width="30"/> tagesschau-widget for Scriptable
+# <img title="tagesschau icon" src="https://www.tagesschau.de/res/assets/image/favicon/favicon.ico" href="https://www.tagesschau.de/api2/homepage/" width="30"/> tagesschau-widget for Scriptable
 Based on this [reddit post](https://www.reddit.com/r/Scriptable/comments/jm17ra/tagesschaude_widget/?utm_source=share&utm_medium=web2x&context=3) from [u/trbn_hck](https://www.reddit.com/user/trbn_hck/)    
-Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tree/main/tagesschau-widget) in his [GitHub profile](https://github.com/trbnhck) is no longer available.
+Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tree/main/tagesschau-widget) in his [GitHub profile](https://github.com/trbnhck) is no longer available.  
 
 ![](https://img.shields.io/badge/Version-1.0-blue.svg?style=flat)
 
@@ -12,9 +12,9 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 
 ### Verfügbare widget größen
 - small
-- medium
-- large
-- extra large (_iPadOS15 und höher_)
+- medium (detail & multi view)
+- large (detail & multi view)
+- extra large (detail & multi view) [iPadOS15 und höher]
 
 ### Widget Parameter
 Wenn im jeweiligen Widget Parametern der Begriff "app" eingetragen wird, werden beiträge aus diesem widget in der [tagesschau-app](https://apps.apple.com/de/app/tagesschau-nachrichten/id401644893) geöffnet.
