@@ -12,14 +12,19 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 
 ### Verfügbare widget größen
 - small
-- medium (detail & multi view)
-- large (detail & multi view)
-- extra large (detail & multi view) [iPadOS15 und höher]
+- medium [detail & multi view]
+- large [detail & multi view]
+- extra large [detail & multi view] (iPadOS15 und höher)
 
 ### Widget Parameter
-Wenn im jeweiligen Widget Parametern der Begriff "app" eingetragen wird, werden beiträge aus diesem widget in der [tagesschau-app](https://apps.apple.com/de/app/tagesschau-nachrichten/id401644893) geöffnet.
+#### `app`
+Wenn im jeweiligen Widget Parametern der Begriff "app" eingetragen wird, werden beiträge aus diesem widget beim anklicken in der [tagesschau-app](https://apps.apple.com/de/app/tagesschau-nachrichten/id401644893) geöffnet.
 Standard ist der web-browser.    
 <img title="Widget Parameter" src="" width="250"/>
+
+#### `detailview`
+Beim eintragen des keywords "detailview" wird der erste Artikel in der detailansicht angezeigt.
+
 
 ### In App Lauf
 Beim starten des Scripts in der App wird als erstes ein Menu angezeigt.    
