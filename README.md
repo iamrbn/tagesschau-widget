@@ -7,6 +7,7 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 ## Widget übersicht 👀
 
 <img title="Overview Widget" src="Images/overviewWidgets.png" width="1000"/>
+<br>
 
 ## Features ✨
 
@@ -16,6 +17,7 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 - large [detail & list view]
 - extra large [detail & list view] (iPadOS15 und höher)
 
+<br>
 
 ### Klickbare Elemente
 
@@ -25,11 +27,14 @@ Bei den "detailview" Widgets ist ausschließlich das Titelbild klickbar und füh
 Zudem sind in den "detailview" Widgets die **Ressort** Tags Klickbar und führen zur entsprechenden Ressort Übersicht (_Ausgenonnem ist "Sonstiges"_)
 Bei den "listview" bzw. normalen widgets ist der komplette jeweilige "Stack" (_graue hintergrund_) klickbar. 
 
+<br>
+
 ### No Thumbnail Found
 Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben so wird ein Platzhalter verwendet.    
 
 <img title="Example No Thumbnail Found - Medium-Widget" src="Images/NoThumbnailFound_exampleMedium.png" width="450"/>
 
+<br>
 
 ### Widget Parameter
 
@@ -42,6 +47,7 @@ Beim eintragen des Keywords "detailview" wird der erste Artikel in der Detailans
 
 **Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon `;`
 
+<br>
 
 ### In App Lauf
 Beim starten des Scripts in der App wird als erstes ein Menu angezeigt.     
@@ -49,6 +55,8 @@ Dieses zwigt in der Headline den aktuellsten Titel, Topline + Ressort.
 Zudem wird angezeigt ob das `extraLarge Widget` auf dem Gerät unterstützt wird. Voraussetzung ist ein iPad mit iPadOS **15** oder neuer.    
 
 <img title="In App Menu iPhone" src="Images/iPhoneMenu.png" width="235"/> <img title="In App Menu iPad" src="Images/iPadMenu.png" width="250"/>
+
+<br>
 
 ### Erster Lauf
 Beim ersten Lauf wird im Scriptable Ordner ein neuer Ordner erstellt mit dem Namen "tagesschau-widget"
@@ -65,18 +73,27 @@ iCloud Drive/
 ```
 <img title="header.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tagesschau_Logo_2015.svg/462px-Tagesschau_Logo_2015.svg.png" width="350"/> <img title="appIcon.png" src="https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/e4/53/54/e45354a1-b99f-8a00-2d1c-d260607c2ec0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.png" width="70"/> <img title="background.png" src="http://www.tagesschau.de/infoscreen/img/background-16-9-HD.png" width="125"/> <img title="NoThumbnailFound.png" src="Images/NoThumbnailFound.png" width="125"/>
 
+<br>
+
 ### Selfupdate Funktion
 Das Script verfügt über eine Selbstupdate Funktion.
-Der User bekommt nach dem Script Update auf GitHub eine benachrichtigung das es eine neue Version zur verfügung gibt. ([Function](https://github.com/mvan231/Scriptable#updater-mechanism-code-example "GitHub Repo") is written by the amazing [@mvan231](https://twitter.com/mvan231 "Twitter"))    
+Der User bekommt nach dem Script Update auf GitHub eine benachrichtigung das es eine neue Version zur verfügung gibt. ([Function](https://github.com/mvan231/Scriptable#updater-mechanism-code-example "GitHub Repo") is written by the amazing [@mvan231](https://twitter.com/mvan231 "Twitter"))   
 
-<img title="Update Notification" src="Images/updateNotification.png" width="250"/>
+<p align="center">
+<img title="Update Notification" src="Images/updateNotification.png" width="300"/>
+</p>
 
+<br>
+
+***
 
 <h2 style="font-size:1"
 <p align="center" style="font-size:10vw">
    <a href="https://github.com/iamrbn/tagesschau-widget/blob/main/README.md"> ⬆️ Nach Oben Springen </a>
 </p>
 </h2>
+
+
  
 <p align="center">
   <a href="https://reddit.com/user/iamrbn/">
