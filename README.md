@@ -1,6 +1,6 @@
 # <img title="tagesschau icon" src="https://www.tagesschau.de/res/assets/image/favicon/favicon.ico" href="https://www.tagesschau.de/api2/homepage/" width="30"/> tagesschau-widget for Scriptable
-Based on this [reddit post](https://www.reddit.com/r/Scriptable/comments/jm17ra/tagesschaude_widget/?utm_source=share&utm_medium=web2x&context=3) from [u/trbn_hck](https://www.reddit.com/user/trbn_hck/)    
-Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tree/main/tagesschau-widget) in his [GitHub profile](https://github.com/trbnhck) is no longer available.  
+Based on this [reddit post](https://www.reddit.com/r/Scriptable/comments/jm17ra/tagesschaude_widget/?utm_source=share&utm_medium=web2x&context=3) of [u/trbn_hck](https://www.reddit.com/user/trbn_hck/)    
+Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tree/main/tagesschau-widget) in his [GitHub profile](https://github.com/trbnhck) is no longer exist.  
 
 ![](https://img.shields.io/badge/Version-1.0-blue.svg?style=flat)
 
@@ -40,19 +40,19 @@ Standard ist der web-browser.
 #### ` detailview `    
 Beim eintragen des Keywords "detailview" wird der erste Artikel in der Detailansicht präsentiert.
 
-Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon `;`
+**Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon `;`
 
 
 ### In App Lauf
 Beim starten des Scripts in der App wird als erstes ein Menu angezeigt.     
-Diese zeigen den aktuellsten Titel + Ressort. Zudem wird angezeigt ob das `extraLarge Widget` auf dem Gerät unterstützt wird.    
-Voraussetzung ist ein iPad mit mindestens iPadOS15.    
+Dieses zwigt in der Headline den aktuellsten Titel, Topline + Ressort.     
+Zudem wird angezeigt ob das `extraLarge Widget` auf dem Gerät unterstützt wird. Voraussetzung ist ein iPad mit iPadOS **15** oder neuer.    
 
-<img title="In App Menu iPhone" src="Images/iPhoneMenu.png" width="250"/> <img title="In App Menu iPad" src="Images/iPadMenu.png" width="250"/>
+<img title="In App Menu iPhone" src="Images/iPhoneMenu.png" width="235"/> <img title="In App Menu iPad" src="Images/iPadMenu.png" width="250"/>
 
 ### Erster Lauf
-Beim ersten Lauf wird im Scruptable Ordner ein neuer ordner erstellt mit dem Namen "tagesschau-widget"
-In diesem werden die drei unten aufgeführten bilder abgelegt.
+Beim ersten Lauf wird im Scriptable Ordner ein neuer Ordner erstellt mit dem Namen "tagesschau-widget"
+In diesem werden die drei unten aufgeführten Bilder abgelegt.
 
 ```
 iCloud Drive/
