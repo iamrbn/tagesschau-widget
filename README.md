@@ -6,7 +6,7 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 
 ## Widget übersicht 👀
 
-<img title="Overview Widget" src="Images/overviewWidgets.png" width="500"/>
+<img title="Overview Widget" src="Images/overviewWidgets.png" width="1000"/>
 
 ## Features ✨
 
@@ -19,7 +19,7 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 
 ### Klickbare Elemente
 
-<img title="Clickable Elements" src="clickableElements.png" width="500"/>
+<img title="Clickable Elements" src="Images/clickableElements.png" width="1000"/>
 
 Bei den "detailview" Widgets ist ausschließlich das Titelbild klickbar und führt zum entsprechenden Artikel.
 Zudem sind in den "detailview" Widgets die **Ressort** Tags Klickbar und führen zur entsprechenden Ressort Übersicht (_Ausgenonnem ist "Sonstiges"_)
@@ -28,7 +28,7 @@ Bei den "listview" bzw. normalen widgets ist der komplette jeweilige "Stack" (_g
 ### No Thumbnail Found
 Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben so wird ein Platzhalter verwendet.    
 
-<img title="Example No Thumbnail Found - Medium-Widget" src="Images/NoThumbnailFound_Example.png" width="250"/>
+<img title="Example No Thumbnail Found - Medium-Widget" src="Images/NoThumbnailFound_exampleMedium.png" width="450"/>
 
 
 ### Widget Parameter
@@ -47,7 +47,8 @@ Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getren
 Beim starten des Scripts in der App wird als erstes ein Menu angezeigt.     
 Diese zeigen den aktuellsten Titel + Ressort. Zudem wird angezeigt ob das `extraLarge Widget` auf dem Gerät unterstützt wird.    
 Voraussetzung ist ein iPad mit mindestens iPadOS15.    
-<img title="In App Menu iPhone" src="" width="250"/> <img title="In App Menu iPad" src="" width="250"/>
+
+<img title="In App Menu iPhone" src="Images/iPhoneMenu.png" width="250"/> <img title="In App Menu iPad" src="Images/iPadMenu.png" width="250"/>
 
 ### Erster Lauf
 Beim ersten Lauf wird im Scruptable Ordner ein neuer ordner erstellt mit dem Namen "tagesschau-widget"
@@ -67,7 +68,8 @@ iCloud Drive/
 ### Selfupdate Funktion
 Das Script verfügt über eine Selbstupdate Funktion.
 Der User bekommt nach dem Script Update auf GitHub eine benachrichtigung das es eine neue Version zur verfügung gibt. ([Function](https://github.com/mvan231/Scriptable#updater-mechanism-code-example "GitHub Repo") is written by the amazing [@mvan231](https://twitter.com/mvan231 "Twitter"))    
-<img title="Update Notification" src="Images/Update Notification.png" width="250"/>
+
+<img title="Update Notification" src="Images/updateNotification.png" width="250"/>
 
 
 <h2 style="font-size:1"
