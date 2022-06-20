@@ -23,7 +23,7 @@ try {
   Script.complete();
 };
 
-  var breakingNews;
+  var breakingNews = ""
   if (data.news[0].breakingNews == true) breakingNews = '⚡️ '
   var artRessort = data.news[0].ressort
   if (artRessort == undefined) artRessort = 'Sonstiges';
