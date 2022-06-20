@@ -2,7 +2,7 @@
 Based on this [reddit post](https://www.reddit.com/r/Scriptable/comments/jm17ra/tagesschaude_widget/?utm_source=share&utm_medium=web2x&context=3) of [u/trbn_hck](https://www.reddit.com/user/trbn_hck/)    
 Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tree/main/tagesschau-widget) in his [GitHub profile](https://github.com/trbnhck) is no longer exist.  
 
-![](https://img.shields.io/badge/Version-1.1-blue.svg?style=flat)
+![](https://img.shields.io/badge/Version-1.1.1-blue.svg?style=flat)
 
 ## Widget übersicht 👀
 
