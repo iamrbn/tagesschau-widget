@@ -47,7 +47,7 @@ Standard ist der web-browser.
 #### ` detailview `    
 Beim eintragen des Keywords "detailview" wird der erste Artikel in der Detailansicht präsentiert.
 
-**Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon `;`
+**Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon `;` (Bsp. `app;detailview`)
 
 <br>
 
