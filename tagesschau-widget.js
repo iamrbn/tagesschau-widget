@@ -1,7 +1,7 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
 // icon-color: blue; icon-glyph: globe-africa;
-// created by iamrbn – https://github.com/iamrbn/
+// created by u/iamrbn – https://github.com/iamrbn/
 
 let widgetSize = config.widgetFamily;
 let fm = FileManager.iCloud();
@@ -9,7 +9,7 @@ let dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget');
 if (!fm.fileExists(dir)) fm.createDirectory(dir);
 let df = new DateFormatter()
     df.dateFormat = 'dd.MM.yyyy, HH:mm'
-let scriptVersion = 1.1
+let scriptVersion = 1.1.1
 let scriptURL = 'https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/tagesschau-widget.js'
 await saveImages()
 
@@ -18,10 +18,11 @@ try {
   data = await new Request('https://www.tagesschau.de/api2/homepage/').loadJSON();
 } catch (e) {
   let errorWidget = await createErrorWidget();
+
   if (config.runsInApp) await errorWidget.presentMedium();
   else Script.setWidget(errorWidget);
   Script.complete();
-};
+}
 
   var breakingNews = ""
   if (data.news[0].breakingNews == true) breakingNews = '⚡️ '
@@ -69,9 +70,13 @@ async function createSmallWidget() {
     
   let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
-      updateInfo = widget.addText(`Update ${uCheck.version} Available!`)
-      updateInfo.font = Font.mediumMonospacedSystemFont(11)
+      updateInfo = widget.addText(`Version ${uCheck.version} is Available\nRun Script in App to update`)
+      updateInfo.font = Font.semiboldSystemFont(10)
       updateInfo.textColor = Color.red()
+      updateInfo.shadowColor = Color.black()
+      updateInfo.shadowOffset = new Point(2, 5);
+      updateInfo.shadowRadius = 4;
+      updateInfo.centerAlignText()
 };
   
       widget.addSpacer();
@@ -120,9 +125,13 @@ async function createMediumWidget() {
     
   let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
-      updateInfo = widget.addText(`Update ${uCheck.version} Available!`)
-      updateInfo.font = Font.mediumMonospacedSystemFont(11)
+      updateInfo = widget.addText(`Version ${uCheck.version} is Available - Run Script in App to update`)
+      updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
+      updateInfo.shadowColor = Color.black()
+      updateInfo.shadowOffset = new Point(2, 5);
+      updateInfo.shadowRadius = 4;
+      updateInfo.centerAlignText()
 };
       
       widget.addSpacer(2)
@@ -148,9 +157,13 @@ async function createMediumDetailWidget() {
     
   let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
-      updateInfo = widget.addText(`Update ${uCheck.version} Available!`)
-      updateInfo.font = Font.mediumMonospacedSystemFont(11)
+      updateInfo = widget.addText(`Version ${uCheck.version} is Available - Run Script in App to update`)
+      updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
+      updateInfo.shadowColor = Color.black()
+      updateInfo.shadowOffset = new Point(2, 5);
+      updateInfo.shadowRadius = 4;
+      updateInfo.centerAlignText()
 };
       
       widget.addSpacer()
@@ -209,9 +222,13 @@ async function createLargeWidget() {
   
   let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
-      updateInfo = headerStack.addText(`Update ${uCheck.version} Available!`)
-      updateInfo.font = Font.mediumMonospacedSystemFont(11)
+      updateInfo = widget.addText(`Version ${uCheck.version} is Available - Run Script in App to update`)
+      updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
+      updateInfo.shadowColor = Color.black()
+      updateInfo.shadowOffset = new Point(2, 5);
+      updateInfo.shadowRadius = 4;
+      updateInfo.centerAlignText()
 };
   
    widget.addSpacer()
@@ -249,9 +266,13 @@ async function createLargeDetailWidget() {
     
   let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
-      updateInfo = headerStack.addText(`Update ${uCheck.version} Available!`)
-      updateInfo.font = Font.mediumMonospacedSystemFont(11)
+      updateInfo = widget.addText(`Version ${uCheck.version} is Available - Run Script in App to update`)
+      updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
+      updateInfo.shadowColor = Color.black()
+      updateInfo.shadowOffset = new Point(2, 5);
+      updateInfo.shadowRadius = 4;
+      updateInfo.centerAlignText()
 };
       
       widget.addSpacer(10);
@@ -337,9 +358,13 @@ async function createExtraLargeWidget() {
           
   let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
-      updateInfo = headerStack.addText(`Update ${uCheck.version} Available!`)
-      updateInfo.font = Font.mediumMonospacedSystemFont(11)
+      updateInfo = widget.addText(`Version ${uCheck.version} is Available - Starte Script im in App Modus zum updaten`)
+      updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
+      updateInfo.shadowColor = Color.black()
+      updateInfo.shadowOffset = new Point(2, 5);
+      updateInfo.shadowRadius = 4;
+      updateInfo.centerAlignText()
 };
       
       widget.addSpacer()
@@ -393,9 +418,13 @@ async function createExtralargeDetailWidget() {
           
   let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
-      updateInfo = headerStack.addText(`Update ${uCheck.version} Available!`)
-      updateInfo.font = Font.mediumMonospacedSystemFont(11)
+      updateInfo = widget.addText(`Version ${uCheck.version} is Available - Starte Script im in App Modus zum updaten`)
+      updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
+      updateInfo.shadowColor = Color.black()
+      updateInfo.shadowOffset = new Point(2, 5);
+      updateInfo.shadowRadius = 4;
+      updateInfo.centerAlignText()
 };
     
   let mainStack = widget.addStack()
@@ -542,8 +571,7 @@ function createErrorWidget() {
       errTxt2.textOpacity = 0.8;
 
   return errorWidget;
-}
-
+};
 
 
 //=======================================\\
@@ -616,9 +644,6 @@ async function presentMenu() {
     widget = await createExtralargeDetailWidget()
     await widget.presentExtraLarge()
   } else if (idx == 7) {
-    widget = await createErrorWidget()
-    await widget.presentMedium()
-  } else if (idx == 8) {
     Safari.openInApp(shareURL, false)
   }
 };
@@ -655,9 +680,8 @@ async function updateCheck(version) {
     }
   } else {log("up to date")}
 
-  return needUpdate, updateCheck;
+  return needUpdate, uC;
 };
-
 
 //=======================================\\
 //============ END OF SCRIPT ============\\
