@@ -1,4 +1,4 @@
 {
-  "version": "1.0",
-  "notes":"- Release Version"
+  "version": "1.1",
+  "notes":"- Platzhalter Thumbnail im Wording angepasst\n- Tag für Eilmeldungen hinzugefügt '⚡️'\n- Bug gefixed bei dem es ein Fehler gab wenn nicht geügend Artikel in der API sind bzw. API Index 'X' nicht existiert"
 }
