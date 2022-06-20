@@ -82,7 +82,7 @@ iCloud Drive/
 Das Script verfügt über eine Selbstupdate Funktion.
 Der User bekommt nach dem Script Update auf GitHub eine benachrichtigung das es eine neue Version zur verfügung gibt. ([Function](https://github.com/mvan231/Scriptable#updater-mechanism-code-example "GitHub Repo") is written by the amazing [@mvan231](https://twitter.com/mvan231 "Twitter"))
 <p align="center">
-<img title="Update Notification" src="Images/updateNotification1.1.png" width="425"/>
+<img title="Update Notification" src="Images/updateNotification1.1.1.png" width="425"/>
 </p>
 
 
