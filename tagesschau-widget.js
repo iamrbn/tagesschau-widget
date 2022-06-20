@@ -1,7 +1,7 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
 // icon-color: blue; icon-glyph: globe-africa;
-// created by iamrbn https://github.com/iamrbn/tagesschau-widget
+// created by iamrbn – https://github.com/iamrbn/
 
 let widgetSize = config.widgetFamily;
 let fm = FileManager.iCloud();
@@ -9,7 +9,7 @@ let dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget');
 if (!fm.fileExists(dir)) fm.createDirectory(dir);
 let df = new DateFormatter()
     df.dateFormat = 'dd.MM.yyyy, HH:mm'
-let scriptVersion = 1.0
+let scriptVersion = 1.1
 let scriptURL = 'https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/tagesschau-widget.js'
 await saveImages()
 
@@ -17,12 +17,14 @@ let data;
 try {
   data = await new Request('https://www.tagesschau.de/api2/homepage/').loadJSON();
 } catch (e) {
-  errorWidget = await createErrorWidget();
+  let errorWidget = await createErrorWidget();
   if (config.runsInApp) await errorWidget.presentMedium();
   else Script.setWidget(errorWidget);
   Script.complete();
 };
 
+  var breakingNews;
+  if (data.news[0].breakingNews == true) breakingNews = '⚡️ '
   var artRessort = data.news[0].ressort
   if (artRessort == undefined) artRessort = 'Sonstiges';
   var shareURL = data.news[0].shareURL
@@ -58,34 +60,34 @@ async function createSmallWidget() {
   let widget = new ListWidget();
       widget.setPadding(7, 7, 7, 4);
       widget.url = shareURL
-      if (data.news[0].teaserImage.videowebl.imageurl == undefined) widget.backgroundImage = await getImageFor("background");
-	  else widget.backgroundImage = await loadImage(data.news[0].teaserImage.videowebl.imageurl);
+  if (data.news[0].teaserImage.videowebl.imageurl == undefined) widget.backgroundImage = await getImageFor("background");
+  else widget.backgroundImage = await loadImage(data.news[0].teaserImage.videowebl.imageurl);
       
   let headerImage = widget.addImage(await getImageFor('appIcon'));
       headerImage.imageSize = new Size(27, 27);
       headerImage.cornerRadius = 13
     
-  let uCheck = await updateCheck(scriptVersion);
+  let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
-      updateInfo = widget.addText(`Update ${uCheck.version} Available!`);
-      updateInfo.font = Font.mediumMonospacedSystemFont(11);
-      updateInfo.textColor = Color.red();
+      updateInfo = widget.addText(`Update ${uCheck.version} Available!`)
+      updateInfo.font = Font.mediumMonospacedSystemFont(11)
+      updateInfo.textColor = Color.red()
 };
   
       widget.addSpacer();
 
   let articleInfo = widget.addStack();
-      articleInfo.bottomAlignContent();
+      articleInfo.bottomAlignContent()
       articleInfo.layoutVertically();
 
-  let articleRessort = articleInfo.addText(artRessort.toUpperCase());
+  let articleRessort = articleInfo.addText(artRessort.toUpperCase())
       articleRessort.textColor = Color.orange();
       articleRessort.font = Font.semiboldSystemFont(9);
       articleRessort.shadowColor = Color.black()
       articleRessort.shadowOffset = new Point(5, 5);
       articleRessort.shadowRadius = 3;
 
-  let articleTitle = articleInfo.addText(data.news[0].title.replaceAll('+', '').trim());
+  let articleTitle = articleInfo.addText(breakingNews + data.news[0].title.replaceAll('+', '').trim());
       articleTitle.textColor = Color.white();
       articleTitle.font = Font.boldSystemFont(14);
       articleTitle.minimumScaleFactor = 0.4;
@@ -102,7 +104,7 @@ async function createSmallWidget() {
       articleDate.shadowRadius = 3;    
 
 return widget
-};
+}
 
 //--------- CREATE MEDIUM WIDGET ---------
 async function createMediumWidget() {
@@ -151,12 +153,12 @@ async function createMediumDetailWidget() {
       updateInfo.textColor = Color.red()
 };
       
-      widget.addSpacer();
+      widget.addSpacer()
           
-  let article = widget.addStack();
-  	  article.spacing = 7
-
- if (data.news[0].teaserImage.videowebl.imageurl == undefined) articleImage = article.addImage(await getImageFor("NoThumbnailFound"));
+  let article = widget.addStack()
+      article.spacing = 7
+  
+ if (data.news[0].teaserImage.videowebl.imageurl == undefined) articleImage = article.addImage(await getImageFor("Eilmeldung_NoThumbnailFound"));
  else articleImage = article.addImage(await loadImage(data.news[0].teaserImage.videowebl.imageurl));  
       articleImage.cornerRadius = 10
       articleImage.url = shareURL
@@ -170,7 +172,7 @@ async function createMediumDetailWidget() {
       articleRessort.font = Font.semiboldMonospacedSystemFont(12);
       articleRessort.url = "https://tagesschau.de/"+artRessort
 
-  let articleTitle = articleInfo.addText(data.news[0].title.replaceAll('+', '').trim());
+  let articleTitle = articleInfo.addText(breakingNews + data.news[0].title.replaceAll('+', '').trim());
       articleTitle.textColor = Color.white();
       articleTitle.font = Font.headline();
       articleTitle.minimumScaleFactor = 0.5;
@@ -179,7 +181,7 @@ async function createMediumDetailWidget() {
       articleDate.font = Font.italicSystemFont(10);
       articleDate.textColor = Color.gray()
       
-      articleInfo.addSpacer();
+      articleInfo.addSpacer()
 
 return widget
 };
@@ -205,7 +207,7 @@ async function createLargeWidget() {
       headerImage.centerAlignImage();
       headerImage.applyFillingContentMode();
   
-let uCheck = await updateCheck(scriptVersion)
+  let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
       updateInfo = headerStack.addText(`Update ${uCheck.version} Available!`)
       updateInfo.font = Font.mediumMonospacedSystemFont(11)
@@ -245,7 +247,7 @@ async function createLargeDetailWidget() {
       headerImage.centerAlignImage();
       headerImage.applyFillingContentMode();
     
- let uCheck = await updateCheck(scriptVersion)
+  let uCheck = await updateCheck(scriptVersion)
   if (uCheck.version > scriptVersion) {
       updateInfo = headerStack.addText(`Update ${uCheck.version} Available!`)
       updateInfo.font = Font.mediumMonospacedSystemFont(11)
@@ -259,17 +261,18 @@ async function createLargeDetailWidget() {
       headerRessortStack.setPadding(2, 6, 2, 6)
       headerRessortStack.cornerRadius = 7
       headerRessortStack.bottomAlignContent()
-      headerRessortStack.backgroundColor = Color.white()    
+      headerRessortStack.backgroundColor = Color.darkGray()    
       headerRessortStack.url = "https://tagesschau.de/" + data.news[0].ressort
       
   let artRessort = headerRessortStack.addText(data.news[0].ressort.toUpperCase()+ "↗")
       artRessort.font = Font.semiboldSystemFont(9)
       artRessort.textColor = Color.orange()
       
-  let artTitle = widget.addText(data.news[0].title.replaceAll('+', '').trim());
+  let artTitle = widget.addText(breakingNews + data.news[0].title.replaceAll('+', '').trim());
       artTitle.font = Font.boldSystemFont(15)
       artTitle.lineLimit = 1
       artTitle.minimumScaleFactor = 0.7
+      artTitle.textColor = Color.white()
       artTitle.shadowColor = Color.black()
       artTitle.shadowOffset = new Point(3, 3);
       artTitle.shadowRadius = 5;
@@ -277,27 +280,30 @@ async function createLargeDetailWidget() {
   let artFirstSentence = widget.addText(data.news[0].firstSentence)
       artFirstSentence.font = Font.regularSystemFont(13);
       artFirstSentence.minimumScaleFactor = 0.7
+      artFirstSentence.textColor = Color.white()
       artFirstSentence.lineLimit = 2
       artFirstSentence.shadowColor = Color.black()
       artFirstSentence.shadowOffset = new Point(3, 3);
       artFirstSentence.shadowRadius = 5;
        
-      widget.addSpacer(4)
+  widget.addSpacer(4)
   
   let imageStack = widget.addStack();
-      imageStack.size = new Size(307, 150);
+      imageStack.size = new Size(307, 163);
       imageStack.cornerRadius = 15
       imageStack.spacing = 10
 
-  let artImage = imageStack.addImage(await loadImage(data.news[0].teaserImage.videowebl.imageurl))
-      artImage.applyFillingContentMode();
-      artImage.url = data.news[0].shareURL;
+  if (data.news[0].teaserImage.videowebl.imageurl == undefined) artImage = imageStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound"));
+  else artImage = imageStack.addImage(await loadImage(data.news[0].teaserImage.videowebl.imageurl));  
+       artImage.applyFillingContentMode();
+       artImage.url = data.news[0].shareURL;
     
-      widget.addSpacer(3)
+    widget.addSpacer(3)
     
   let artContent = widget.addText(data.news[0].content[0].value.replace(/<[^>]*>/g, ''))
       artContent.font = Font.regularSystemFont(12)
-      artContent.minimumScaleFactor = 0.8 
+      artContent.textColor = Color.white()
+      artContent.minimumScaleFactor = 0.8  
       
   let artDate = widget.addText("Stand: " + df.string(new Date(data.news[0].date)) + " Uhr");
       artDate.font = Font.italicSystemFont(9)
@@ -362,6 +368,7 @@ async function createExtraLargeWidget() {
 return widget;
 };
 
+
 //--------- CREATE EXTRA LARGE DETAIL WIDGET ---------
 //Extra large widgets are only supported on iPads running iOS 15 and newer.
 async function createExtralargeDetailWidget() {
@@ -412,7 +419,7 @@ async function createExtralargeDetailWidget() {
       artRessort.font = Font.semiboldSystemFont(9)
       artRessort.textColor = Color.orange()
       
-  let artTitle = leftStack.addText(data.news[0].title.replaceAll('+', '').trim());
+  let artTitle = leftStack.addText(breakingNews + data.news[0].title.replaceAll('+', '').trim());
       artTitle.font = Font.boldSystemFont(15)
       artTitle.textColor = Color.white()
       artTitle.shadowColor = Color.black()
@@ -433,14 +440,13 @@ async function createExtralargeDetailWidget() {
       leftStack.addSpacer(2)
   
   let imageStack = leftStack.addStack();
-      imageStack.size = new Size(330, 165);
-      imageStack.centerAlignContent()
+      imageStack.size = new Size(320, 165);
       imageStack.cornerRadius = 20
-      imageStack.spacing = 25	  
-
-  if (data.news[0].teaserImage.videowebl.imageurl == undefined) artImage = imageStack.addImage(await getImageFor("NoThumbnailFound"))
+      imageStack.spacing = 10
+	
+  if (data.news[0].teaserImage.videowebl.imageurl == undefined) artImage = imageStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound"))
   else artImage = imageStack.addImage(await loadImage(data.news[0].teaserImage.videowebl.imageurl))
-	     artImage.applyFillingContentMode();
+	   artImage.applyFillingContentMode();
   	   artImage.url = data.news[0].shareURL;
   
       leftStack.addSpacer(2)
@@ -462,14 +468,16 @@ async function createExtralargeDetailWidget() {
   await createLargeArticleView(rightStack, 4);
   await createLargeArticleView(rightStack, 5);
   
-  widget.addSpacer(5);
+      widget.addSpacer(5);
       
 return widget;
 };
 
 
 async function createLargeArticleView(widget, lineNmbr) {
-  	  widget.addSpacer(3)
+if (data.news[lineNmbr] == undefined) lineNmbr -= 1;
+
+      widget.addSpacer(3)
   let main_lineNmbr = widget.addStack()
       main_lineNmbr.backgroundColor = new Color('#41414180')
       main_lineNmbr.cornerRadius = 7
@@ -481,8 +489,9 @@ async function createLargeArticleView(widget, lineNmbr) {
   let article_lineNmbr = main_lineNmbr.addStack()
       article_lineNmbr.layoutVertically()
       article_lineNmbr.topAlignContent()
-      
-  if (data.news[lineNmbr].teaserImage.videowebl.imageurl == undefined) img =  image_lineNmbr.addImage(await getImageFor("NoThumbnailFound"))
+   
+  if (data.news[lineNmbr].breakingNews == true) breakingNews = '⚡️ '     
+  if (data.news[lineNmbr].teaserImage.videowebl.imageurl == undefined) img =  image_lineNmbr.addImage(await getImageFor("Eilmeldung_NoThumbnailFound"))
   else img = image_lineNmbr.addImage(await loadImage(data.news[lineNmbr].teaserImage.videowebl.imageurl))
        img.cornerRadius = 7 
       
@@ -493,7 +502,7 @@ async function createLargeArticleView(widget, lineNmbr) {
       ressort.textColor = Color.orange();
       ressort.font = Font.semiboldMonospacedSystemFont(9);
       
-  let title = article_lineNmbr.addText(data.news[lineNmbr].title.replaceAll('+', '').trim())
+  let title = article_lineNmbr.addText(breakingNews + data.news[lineNmbr].title.replaceAll('+', '').trim())
       title.textColor = Color.white();
       title.font = Font.boldMonospacedSystemFont(10)
       title.minimumScaleFactor = 0.5;
@@ -507,12 +516,14 @@ async function createLargeArticleView(widget, lineNmbr) {
       widget.addSpacer(3)
 };
 
+
 function createErrorWidget() {
   let errorWidget = new ListWidget();
 
   let bgGradient = new LinearGradient();
       bgGradient.locations = [0, 1];
       bgGradient.colors = [new Color('#2D65AE'), new Color('#19274C')];
+
       errorWidget.backgroundGradient = bgGradient;
 
   let title = errorWidget.addText('tagesschau');
@@ -533,16 +544,22 @@ function createErrorWidget() {
   return errorWidget;
 }
 
+
+
+//=======================================\\
+//============ FUNCTION AREA ============\\
+//=======================================\\
+
 async function loadImage(url) {
   return await new Request(url).loadImage();
-}
+};
 
 async function saveImages() {
   let imgs = {
 background:"http://www.tagesschau.de/infoscreen/img/background-16-9-HD.png",
 header:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tagesschau_Logo_2015.svg/462px-Tagesschau_Logo_2015.svg.png",
 appIcon:"https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/e4/53/54/e45354a1-b99f-8a00-2d1c-d260607c2ec0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.png",
-NoThumbnailFound:"https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/Images/NoThumbnailFound.png"}
+Eilmeldung_NoThumbnailFound:"https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/Images/Eilmeldung_NoThumbnailFound.png"}
   for (img in imgs) {
     imgName = img + ".png"
     imgPath = fm.joinPath(dir, imgName);
@@ -562,7 +579,7 @@ async function getImageFor(name) {
 };
 
 async function presentMenu() {
-  if (!Device.isPad() || Device.systemVersion() < 15) ipadOpt =  " ❌ [not available on device]"
+  if (!Device.isPad() || Device.systemVersion() < 15) ipadOpt =  " ❌ (not available on device)"
   else ipadOpt = ""
   let alert = new Alert();
       alert.title = data.news[0].topline + " [" + artRessort.toUpperCase() + "]"
@@ -625,7 +642,7 @@ async function updateCheck(version) {
           newAlert.title = `Server Version ${uC.version} Verfügbar!`
           newAlert.addAction("OK")
           newAlert.addDestructiveAction("Später")
-          newAlert.message="Änderungen:\n" + uC.notes + "\n\nOK klicken um den GitHub Download zu starten"
+          newAlert.message="Änderungen:\n" + uC.notes + "\n\nOK klicken für den Download von GitHub"
       if (await newAlert.present() == 0) {
         let req = new Request(scriptURL)
         let updatedCode = await req.loadString()
@@ -640,6 +657,7 @@ async function updateCheck(version) {
 
   return needUpdate, updateCheck;
 };
+
 
 //=======================================\\
 //============ END OF SCRIPT ============\\
