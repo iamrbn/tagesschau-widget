@@ -1,7 +1,7 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
 // icon-color: blue; icon-glyph: globe-africa;
-// created by u/iamrbn - https://github.com/iamrbn/tagesschau-widget
+// created by iamrbn https://github.com/iamrbn/tagesschau-widget
 
 let widgetSize = config.widgetFamily;
 let fm = FileManager.iCloud();
@@ -9,7 +9,7 @@ let dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget');
 if (!fm.fileExists(dir)) fm.createDirectory(dir);
 let df = new DateFormatter()
     df.dateFormat = 'dd.MM.yyyy, HH:mm'
-let scriptVersion = '1.1.2'
+let scriptVersion = '1.1.1'
 let scriptURL = 'https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/tagesschau-widget.js'
 await saveImages()
 
@@ -525,8 +525,8 @@ if (data.news[lineNmbr] == undefined) lineNmbr -= 1;
   let article_lineNmbr = main_lineNmbr.addStack()
       article_lineNmbr.layoutVertically()
       article_lineNmbr.topAlignContent()
-
-  if (data.news[lineNmbr].breakingNews == true) data.news[lineNmbr].breakingNews = '⚡️ ';
+ 
+  breakingNews = (data.news[lineNmbr].breakingNews == true) ? breakingNews = '⚡️ ' : breakingNews = '';
   if (data.news[lineNmbr].teaserImage == undefined) img = image_lineNmbr.addImage(await getImageFor("Eilmeldung_NoThumbnailFound"));
   else img = image_lineNmbr.addImage(await loadImage(data.news[lineNmbr].teaserImage.videowebl.imageurl));
        img.cornerRadius = 7 
@@ -538,7 +538,7 @@ if (data.news[lineNmbr] == undefined) lineNmbr -= 1;
       ressort.textColor = Color.orange();
       ressort.font = Font.semiboldMonospacedSystemFont(9);
       
-  let title = article_lineNmbr.addText(data.news[lineNmbr].breakingNews + data.news[lineNmbr].title.replaceAll('+', '').trim());
+  let title = article_lineNmbr.addText(breakingNews + data.news[lineNmbr].title.replaceAll('+', '').trim());
       title.textColor = Color.white();
       title.font = Font.boldMonospacedSystemFont(10);
       title.minimumScaleFactor = 0.5;
