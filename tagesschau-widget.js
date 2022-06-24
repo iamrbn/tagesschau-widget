@@ -9,7 +9,7 @@ let dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget');
 if (!fm.fileExists(dir)) fm.createDirectory(dir);
 let df = new DateFormatter()
     df.dateFormat = 'dd.MM.yyyy, HH:mm'
-let scriptVersion = '1.1.1'
+let scriptVersion = '1.1.2'
 let scriptURL = 'https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/tagesschau-widget.js'
 await saveImages()
 
