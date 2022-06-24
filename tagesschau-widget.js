@@ -1,7 +1,7 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
 // icon-color: blue; icon-glyph: globe-africa;
-// created by iamrbn https://github.com/iamrbn/tagesschau-widget
+// created by iamrbn - https://github.com/iamrbn/tagesschau-widget
 
 let widgetSize = config.widgetFamily;
 let fm = FileManager.iCloud();
