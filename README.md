@@ -33,7 +33,7 @@ Bei den "listview" bzw. normalen widgets ist der komplette jeweilige "Stack" (_g
 Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben (_Grund Eilmeldung_) so wird ein Platzhalter verwendet.
 
 <p align="center">
-<img title="Example No Thumbnail Found - Medium-Widget" src="Images/Eilmeldung_NoThumbnailFound_exampleMedium.png" width="450"/>
+<img title="Example No Thumbnail Found - Medium-Widget" src="Images/Eilmeldung_NoThumbnailFound_exampleMedium.PNG" width="450"/>
    </p>
 
 <br>
