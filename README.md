@@ -84,8 +84,10 @@ let feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' mögli
 #### ` detailview `    
 Beim eintragen des Keywords "detailview" wird der erste Artikel in der Detailansicht präsentiert.
 
-**Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon `;` (Bsp. `app;detailview`)
+#### ` Ressort `
+Widgets können mit den keywords "news" oder "regional" den jeweilgen Feed anzeigen.
 
+**Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon `;` (Bsp. `regional;detailview`)
 <br>
 
 ### In App Lauf
