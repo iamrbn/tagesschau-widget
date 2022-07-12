@@ -621,7 +621,7 @@ async function createTable() {
       headerRow.isHeader = true
       headerRow.height = 50
       
-      iconCell = UITableCell.image(await getImageFor('appIconRounded2'));
+      iconCell = UITableCell.image(await getImageFor('appIconRounded'));
       iconCell.widthWeight = 3;
       headerRow.addCell(iconCell);
       
