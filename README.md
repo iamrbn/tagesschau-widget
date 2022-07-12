@@ -31,7 +31,6 @@ Bei den "listview" bzw. normalen widgets ist der komplette jeweilige "Stack" (_g
 
 ### ++ Eilmeldung ++ No Thumbnail Found
 Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben (_Grund Eilmeldung_) so wird ein Platzhalter verwendet um eine Fehlermeldung zu vermeiden.
-
 <p align="center">
 <img title="Example No Thumbnail Found - Medium-Widget" src="Images/Eilmeldung_NoThumbnailFound_exampleMedium.PNG" width="450"/>
    </p>
@@ -41,13 +40,13 @@ Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben (_Grund Eil
 ### Feed Ansicht
 In der Feed Ansicht kann die Übersicht News oder Regional ausgewählt werden.
 
-<img title="Ressort Auswählen" src="Images/selectRessort.png" width="235"/>
+<img title="Ressort Regional oder News Auswählen" src="Images/selectRessort.png" width="250"/>
 Was Ausgewählt wurde wird später im Header angezeigt.
 Zudem zeigt der Feed u. a. farblich an ob ein Artikel eine Eilmeldung ist.
 Jedes einzelne Zeile ist klickbar und führt zum jeweiligen Artikel.
 
 <p align="center">
-<img title="Feed Ansicht iPhone" src="Images/FeedAnsichtiPhone.PNG" width="250"/> <img title="Feed Ansicht iPad" src="Images/FeedAnsichtiPad.PNG" width="750"/>
+<img title="Feed Ansicht (News) iPhone" src="Images/FeedAnsichtiPhone.PNG" width="250"/> <img title="Feed Ansicht (Regional) iPad" src="Images/FeedAnsichtiPad.PNG" width="750"/>
    </p>
 
 
@@ -61,7 +60,7 @@ let enableNotifications = true //true: Neue Pushnachrichten erlabut, ansonsten '
 let tagesschau100sec = true //true für Push-Notifications bei neuer Folge
 ```
 <p align="center">
-<img title="Push Notification Feed" src="Images/PushNotificationFeed.PNG" width="235"/> <img title="Push Notification Tagesschau in 100 Sekunden" src="Images/PushNotificationTS100Sek.gif" width="250"/>
+<img title="Push Notification Feed" src="Images/PushNotificationFeed.PNG" width="300"/> <img title="Push Notification Tagesschau in 100 Sekunden" src="Images/PushNotificationTS100Sek.gif" width="300"/>
    </p>
    
 <br>
@@ -74,6 +73,8 @@ Im Script können neben dem erlauben von Push Notifications auch den ungefähren
 let refreshInt = 30 //Refresh Intervall der einzelnen Widgets in Minuten eingeben
 let feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' möglich
 ```
+
+<br>
 
 ### Widget Parameter
 
@@ -92,7 +93,7 @@ Beim starten des Scripts in der App wird als erstes ein Menu angezeigt.
 Dieses zwigt in der Headline den aktuellsten Titel, Topline + Ressort.     
 Zudem wird angezeigt ob das `extraLarge Widget` auf dem Gerät unterstützt wird. Voraussetzung ist ein iPad mit iPadOS **15** oder neuer.    
 <p align="center">
-<img title="In App Menu iPhone" src="Images/iPhoneMenu.png" width="235"/> <img title="In App Menu iPad" src="Images/iPadMenu.png" width="250"/>
+<img title="In App Menu iPhone" src="Images/iPhoneMenu.png" width="250"/> <img title="In App Menu iPad" src="Images/iPadMenu.png" width="755"/>
    </p>
 
 <br>
