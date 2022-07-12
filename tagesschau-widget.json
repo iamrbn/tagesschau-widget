@@ -1,4 +1,4 @@
 {
-  "version": "1.1.2",
-  "notes":"- Bug gefixed bei dem das Platzhalter Thumbnail für Eilmeldungen nicht geladen wurde"
+ "version": "1.2",
+ "notes":"- Beim starten des Scripts in der App wird dir nun Zzgl. die Option 'Feed Anzeigen↗' mit angeboten\n- Das Script verfügt nun über Push Notifications (Neue Artikel u. neue Folgen 'Tagesschau in 100 Sekunden') kann Ein- oder ausschaltet werden\n- Du kannst nun im Script den standard Feed-Typ setzen dadurch bekommst du Globale oder Regianale Artikel angezeigt (default ist 'News')\n- Über die Widgetparameter können jetzt nun Feed-Typen pro Widget definiert werden ('News' o. 'Regional')\n- Das Medium-Detail Widget zeigt nun nicht nur den Titel sonder auch den ersten Satz des Artikels\n- Du kannst nun den Refresh-Intervall des Scripts steuern (default sind 30 min)\n- Die Option mit dem Keyword 'app' in den Widgetparametern die Tagesschau-App zu starten wurde entfernt"
 }
