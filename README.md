@@ -41,13 +41,13 @@ Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben (_Grund Eil
 ### Feed Ansicht
 In der Feed Ansicht kann die Übersicht News oder Regional ausgewählt werden.
 
-<img title="Ressort Auswählen" src="Images/RessortAuswählen.png" width="235"/>
+<img title="Ressort Auswählen" src="Images/RessortAuswählen.PNG" width="235"/>
 Was Ausgewählt wurde wird später im Header angezeigt.
 Zudem zeigt der Feed u. a. farblich an ob ein Artikel eine Eilmeldung ist.
 Jedes einzelne Zeile ist klickbar und führt zum jeweiligen Artikel.
 
 <p align="center">
-<img title="Feed Ansicht iPhone" src="Images/FeedAnsichtiPhone.png" width="235"/> <img title="Feed Ansicht iPad" src="Images/FeedAnsichtiPad.png" width="250"/>
+<img title="Feed Ansicht iPhone" src="Images/FeedAnsichtiPhone.PNG" width="250"/> <img title="Feed Ansicht iPad" src="Images/FeedAnsichtiPad.PNG" width="750"/>
    </p>
 
 
@@ -61,7 +61,7 @@ let enableNotifications = true //true: Neue Pushnachrichten erlabut, ansonsten '
 let tagesschau100sec = true //true für Push-Notifications bei neuer Folge
 ```
 <p align="center">
-<img title="Push Notification Feed" src="Images/PushNotificationFeed.png" width="235"/> <img title="Push Notification Tagesschau in 100 Sekunden" src="Images/PushNotificationTS100Sek.png" width="250"/>
+<img title="Push Notification Feed" src="Images/PushNotificationFeed.PNG" width="235"/> <img title="Push Notification Tagesschau in 100 Sekunden" src="Images/PushNotificationTS100Sek.mov" width="250"/>
    </p>
    
 <br>
