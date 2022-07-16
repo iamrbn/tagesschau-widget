@@ -9,9 +9,9 @@
 //!!!!!!!!!!! START OF CONFIG ZONE !!!!!!!!!!!!!
 
 let feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' möglich
-let refreshInt = 30 //Refresh Intervall der einzelnen Widgets in Minuten eingeben
+let refreshInt = 60 //Refresh Intervall der einzelnen Widgets in Minuten eingeben
 let enableNotifications = true //true: Neue Pushnachrichten erlabut, ansonsten 'false'
-let tagesschau100sec = true //true: für Pushnachrichten bei neuer Folge
+let tagesschau100sec = true //true für Push-Notifications bei neuer Folge
 
 //!!!!!!!!!!!! END OF CONFIG ZONE !!!!!!!!!!!!!!!
 //===============================================
@@ -27,7 +27,7 @@ let dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget');
 if (!fm.fileExists(dir)) fm.createDirectory(dir);
 let df = new DateFormatter();
     df.dateFormat = 'dd.MM.yy, HH:mm';
-let scriptVersion = '1.2';
+let scriptVersion = '1.2.1';
 let scriptURL = 'https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/tagesschau-widget.js';
 let endPoint = 'homepage'
 await saveImages();
@@ -52,19 +52,17 @@ async function getFromAPI(feedRessort, apiEndpoint) {
 
     items = await getFromAPI(feedType, endPoint);
     channels = await getFromAPI('channels', 'channels');
-let video = channels.find(element => element.title == 'tagesschau in 100 Sekunden');
+    video = channels.find(element => element.title == 'tagesschau in 100 Sekunden');
 
     shareURL = items[0].shareURL;
     breakingNews = (items[0].breakingNews === true) ? '⚡️ ' : '';
     ressort = (items[0].ressort == undefined) ? 'Sonstiges' : items[0].ressort;
 
 if (!nKey.contains("current_title_idx0")) nKey.set("current_title_idx0", items[0].title);
-if (!nKey.contains("current_podcast")) nKey.set("current_podcast", video.externalId);
-if (nKey.get("current_title_idx0") != items[0].title && enableNotifications) await notificationScheduler();
-if (nKey.get("current_podcast") != video.externalId && tagesschau100sec) await notificationSchedulerVid(await getFromAPI('channels', 'channels'))
+if (!nKey.contains("current_podcast")) nKey.set("current_podcast", video.tracking[0].pdt);
+if (nKey.get("current_title_idx0") != items[0].title && enableNotifications) notificationScheduler();
+if (nKey.get("current_podcast") != video.tracking[0].pdt && tagesschau100sec) notificationSchedulerVid()
 
-//await notificationScheduler();
-//await notificationSchedulerVid(video);
 
 if (config.runsInApp) {
   await presentMenu()
@@ -92,6 +90,11 @@ if (config.runsInApp) {
     QuickLook.present(attatchmend)
 };
 
+//Entferne die Slashes um bei jedem Lauf eine Notification zu erhalten:
+// notificationScheduler();
+// notificationSchedulerVid();
+
+
 //--------- CREATE SMALL WIDGET ---------
 async function createSmallWidget() {
   let widget = new ListWidget();
@@ -101,7 +104,7 @@ async function createSmallWidget() {
 
       widget.backgroundImage = (items[0].teaserImage == undefined) ?await getImageFor("background") : await loadImage(items[0].teaserImage.videowebl.imageurl);
       
-  let headerImage = widget.addImage(await getImageFor('appIcon'));
+  let headerImage = widget.addImage(await getImageFor('appIconRounded'));
       headerImage.imageSize = new Size(27, 27);
       headerImage.cornerRadius = 13;
     
@@ -525,8 +528,9 @@ async function createExtralargeDetailWidget() {
       imageStack.spacing = 10;
 	
   let artImage = (items[0].teaserImage == undefined) ? imageStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : imageStack.addImage(await loadImage(items[0].teaserImage.videowebl.imageurl));
-      artImage.applyFillingContentMode();
-      artImage.url = items[0].shareURL;
+
+	   artImage.applyFillingContentMode();
+  	   artImage.url = items[0].shareURL;
   
       leftStack.addSpacer(2)
     
@@ -621,7 +625,7 @@ async function createTable() {
       headerRow.isHeader = true
       headerRow.height = 50
       
-      iconCell = UITableCell.image(await getImageFor('appIconRounded'));
+      iconCell = UITableCell.image(await getImageFor('appIconRounded2'));
       iconCell.widthWeight = 3;
       headerRow.addCell(iconCell);
       
@@ -705,6 +709,7 @@ function createErrorWidget() {
 };
 
 
+
 //=======================================\\
 //============ FUNCTION AREA ============\\
 //=======================================\\
@@ -739,6 +744,39 @@ async function getImageFor(name) {
   await fm.downloadFileFromiCloud(imgPath)
   img = await fm.readImage(imgPath)
  return img;
+};
+
+function notificationSchedulerVid() {
+  let n = new Notification();
+      n.title = video.title;
+      n.body = 'vom ' + df.string(new Date(video.date)) + ' Uhr';
+      n.addAction("Video im Browser Öffnen ▶︎", video.streams.podcastvideom)
+      n.identifier = video.externalId;
+      n.preferredContentHeight = 242;
+      n.threadIdentifier = Script.name();
+      n.scriptName = Script.name();
+      n.userInfo = {"url":video.streams.podcastvideom};
+      n.schedule();
+    
+ nKey.set("current_podcast", video.tracking[0].pdt);
+};
+
+//Create Notifications
+function notificationScheduler() {
+let imgURLStr = (items[0].teaserImage == undefined) ? null : items[0].teaserImage.videowebl.imageurl;
+ let n = new Notification();
+     n.title = items[0].title;
+     n.body = `${items[0].content[0].value.replace(/<[^>]*>/g, '')}\r${ressort.toUpperCase()} | ${df.string(new Date(items[0].date))} Uhr`;
+     n.addAction("Artikel im Browser Öffnen ↗", items[0].shareURL);
+     n.identifier = items[0].sophoraId;
+     n.userInfo = {"url":imgURLStr};
+     n.threadIdentifier = Script.name();
+     n.preferredContentHeight = 211;
+     n.openURL = items[0].shareURL;
+     n.scriptName = Script.name();
+     n.schedule();
+    
+ nKey.set("current_title_idx0", items[0].title);
 };
 
 
@@ -782,41 +820,6 @@ async function presentMenu() {
     await widget.presentExtraLarge();
   } else if (idx == 7) QuickLook.present(await createTable());
     else if (idx == 8) Safari.openInApp(shareURL, false);
-};
-
-
-async function notificationSchedulerVid(video) {
- let vidURLStr = (video.streams == undefined) ? null : video.streams.podcastvideom;
-  let n = new Notification();
-      n.title = video.title;
-      n.body = 'vom ' + df.string(new Date(video.date)) + ' Uhr';
-      n.addAction("Video im Browser Öffnen ▶︎", video.streams.podcastvideom)
-      n.identifier = video.externalId;
-      n.preferredContentHeight = 242;
-      n.threadIdentifier = Script.name();
-      n.scriptName = Script.name();
-      n.userInfo = {"url":vidURLStr};
-      n.schedule();
-    
- nKey.set("current_podcast", video.externalId);
-};
-
-//Create Notifications
-async function notificationScheduler() {
-let imgURLStr = (items[0].teaserImage == undefined) ? null : items[0].teaserImage.videowebl.imageurl;
- let n = new Notification();
-     n.title = items[0].title;
-     n.body = `${items[0].content[0].value.replace(/<[^>]*>/g, '')}\r${ressort.toUpperCase()} | ${df.string(new Date(items[0].date))} Uhr`;
-     n.addAction("Artikel im Browser Öffnen ↗", items[0].shareURL);
-     n.identifier = items[0].sophoraId;
-     n.userInfo = {"url":imgURLStr};
-     n.threadIdentifier = Script.name();
-     n.preferredContentHeight = 211;
-     n.openURL = items[0].shareURL;
-     n.scriptName = Script.name();
-     n.schedule();
-    
- nKey.set("current_title_idx0", items[0].title);
 };
 
 //Checks if's there an server update on GitHub available
