@@ -70,7 +70,7 @@ Im Script können neben dem erlauben von Push Notifications auch den ungefähren
 ` news ` oder ` regional `
 
 ```javascript
-let refreshInt = 30 //Refresh Intervall der einzelnen Widgets in Minuten eingeben
+let refreshInt = 60 //Refresh Intervall der einzelnen Widgets in Minuten eingeben
 let feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' möglich
 ```
 
@@ -79,7 +79,7 @@ let feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' mögli
 ### Widget Parameter
 
 #### ` app `    
-~~Wenn im jeweiligen Widget Parametern der Begriff "app" eingetragen wird, werden beiträge aus diesem widget beim anklicken in der [tagesschau-app](https://apps.apple.com/de/app/tagesschau-nachrichten/id401644893) geöffnet. Standard ist der web-browser.~~ - wurde im release `1.2` entfernt!
+~~Wenn im jeweiligen Widget Parametern der Begriff "app" eingetragen wird, werden beiträge aus diesem widget beim anklicken in der [tagesschau-app](https://apps.apple.com/de/app/tagesschau-nachrichten/id401644893) geöffnet. Standard ist der web-browser.~~ - wurde im release [`1.2`](https://github.com/iamrbn/tagesschau-widget/releases/tag/v1.2 "Release Notes") entfernt!
 
 #### ` detailview `    
 Beim eintragen des Keywords "detailview" wird der erste Artikel in der Detailansicht präsentiert.
