@@ -1,4 +1,4 @@
-# <img title="tagesschau icon" src="https://www.tagesschau.de/res/assets/image/favicon/favicon.ico" href="https://www.tagesschau.de/api2/homepage/" width="30"/> tagesschau-widget for Scriptable
+# <img title="tagesschau icon" src="Images/appIconRounded.png" href="https://www.tagesschau.de/api2/homepage/" width="30"/> tagesschau-widget for Scriptable
 Based on this [reddit post](https://www.reddit.com/r/Scriptable/comments/jm17ra/tagesschaude_widget/?utm_source=share&utm_medium=web2x&context=3) of [u/trbn_hck](https://www.reddit.com/user/trbn_hck/)    
 Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tree/main/tagesschau-widget) in his [GitHub profile](https://github.com/trbnhck) is no longer exist.  
 
