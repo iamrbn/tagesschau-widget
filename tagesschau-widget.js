@@ -8,38 +8,38 @@
 //==============================================
 //!!!!!!!!!!! START OF CONFIG ZONE !!!!!!!!!!!!!
 
-let feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' möglich
+var feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' möglich
 let refreshInt = 60 //Refresh Intervall der einzelnen Widgets in Minuten eingeben
 let enableNotifications = true //true: Neue Pushnachrichten erlabut, ansonsten 'false'
-let tagesschau100sec = true //true für Push-Notifications bei neuer Folge
+let tagesschau100sec = false //true für Push-Notifications bei neuer Folge
 
-//!!!!!!!!!!!! END OF CONFIG ZONE !!!!!!!!!!!!!!!
+//!!!!!!!!!!!! END OF CONFIG ZONE !!!!!!!!!!!!!!!/
+
 //===============================================
-
 //Änderungen ab hier auf eigene Gefahr!!!
-let nKey = Keychain;
-let wParameter = await args.widgetParameter;
-let nParameter = await args.notification;
-let nParameter2 = await args.notification;
-let widgetSize = config.widgetFamily;
-let fm = FileManager.iCloud();
-let dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget');
-if (!fm.fileExists(dir)) fm.createDirectory(dir);
-let df = new DateFormatter();
-    df.dateFormat = 'dd.MM.yy, HH:mm';
-let scriptVersion = '1.2.1';
-let scriptURL = 'https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/tagesschau-widget.js';
+let nKey = Keychain
+let wParameter = await args.widgetParameter
+let nParameter = await args.notification
+let nParameter2 = await args.notification
+let widgetSize = config.widgetFamily
+let fm = FileManager.iCloud()
+let dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget')
+if (!fm.fileExists(dir)) fm.createDirectory(dir)
+let df = new DateFormatter()
+    df.dateFormat = 'dd.MM.yy, HH:mm'
+let scriptVersion = '1.3'
+let scriptURL = 'https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/tagesschau-widget.js'
 let endPoint = 'homepage'
-await saveImages();
+await saveImages()
  
- if (wParameter == null) feedType;
- else if (wParameter.includes("Regional")) feedType = "regional";
- else if (wParameter.includes("News")) feedType = "news";
+ if (wParameter == null) feedType
+ else if (wParameter.includes("Regional")) feedType = "regional"
+ else if (wParameter.includes("News")) feedType = "news"
   
 async function getFromAPI(feedRessort, apiEndpoint) {
   let items;
   try {
-    items = await new Request(`https://www.tagesschau.de/api2/${apiEndpoint}/`).loadJSON();
+    items = await new Request(`https://www.tagesschau.de/api2/${apiEndpoint}/`).loadJSON()
 } catch (err) {
     log(err);
     errorWidget = await createErrorWidget();
@@ -65,7 +65,7 @@ if (nKey.get("current_podcast") != video.tracking[0].pdt && tagesschau100sec) no
 
 
 if (config.runsInApp) {
-  await presentMenu()
+  QuickLook.present(await createTable());
 } else if (config.runsInWidget) {
   switch (widgetSize) {
     case "small": widget = await createSmallWidget();
@@ -82,6 +82,8 @@ if (config.runsInApp) {
         if(wParameter.includes("detailview")) widget = await createExtralargeDetailWidget();
        else widget = await createExtraLargeWidget();
       break;
+    case "accessoryRectangular": widget = await createMediumLSW();
+      break;
     default: widget = await createMediumWidget();
     }
   Script.setWidget(widget);
@@ -90,10 +92,46 @@ if (config.runsInApp) {
     QuickLook.present(attatchmend)
 };
 
-//Entferne die Slashes um bei jedem Lauf eine Notification zu erhalten:
-// notificationScheduler();
-// notificationSchedulerVid();
+async function createMediumLSW(){
+    let w = new ListWidget()
+    //w.addAccessoryWidgetBackground = true
+    w.setPadding(0, 0, 0, 0)
+    w.url = shareURL
+    w.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt);
 
+	let headerStack = w.addStack()
+    headerStack.spacing = 3
+    headerStack.centerAlignContent()
+    
+    let sf = SFSymbol.named("globe.europe.africa.fill")
+    sf.applyUltraLightWeight()
+    let headerImg = headerStack.addImage(sf.image)
+    headerImg.imageSize = new Size(12, 12)
+    headerImg.tintColor = Color.white();
+    let headerTxt = headerStack.addText("tagesschau " + feedType.charAt(0).toUpperCase() + feedType.slice(1))
+    headerTxt.font = Font.boldSystemFont(12)
+    
+    w.addSpacer(0.5)
+    
+    let artTitle = w.addText(breakingNews + items[0].title.replaceAll('+', '').trim())
+    artTitle.font = Font.semiboldSystemFont(9)
+    artTitle.minimumScaleFactor = 0.6
+    artTitle.lineLimit = 2
+    
+    let artFirstSentence = w.addText(items[0].firstSentence)
+    artFirstSentence.font = Font.systemFont(9)
+    artFirstSentence.minimumScaleFactor = 0.6
+    artFirstSentence.lineLimit = 2
+    
+    w.addSpacer(0.5)
+    
+    let artFooter = w.addText(ressort.toUpperCase() + " • " + df.string(new Date(items[0].date)) + " Uhr")
+    artFooter.font = Font.italicSystemFont(5)
+    artFooter.lineLimit = 1
+    artFooter.textOpacity = 0.7
+    
+    return w
+}
 
 //--------- CREATE SMALL WIDGET ---------
 async function createSmallWidget() {
@@ -102,7 +140,7 @@ async function createSmallWidget() {
       widget.url = shareURL;
       widget.refreshAfterDate = new Date(Date.now() + 1000*60* refreshInt);
 
-      widget.backgroundImage = (items[0].teaserImage == undefined) ?await getImageFor("background") : await loadImage(items[0].teaserImage.videowebl.imageurl);
+      widget.backgroundImage = (items[0].teaserImage == undefined) ?await getImageFor("background") : await loadImage(items[0].teaserImage.imageVariants["16x9-1920"]);
       
   let headerImage = widget.addImage(await getImageFor('appIconRounded'));
       headerImage.imageSize = new Size(27, 27);
@@ -187,7 +225,7 @@ return widget;
 //--------- CREATE MEDIUM DETAIL WIDGET ---------
 async function createMediumDetailWidget() {
   let widget = new ListWidget();
-      widget.setPadding(10, 10, 10, 10);
+      widget.setPadding(10, 7, 10, 7);
       widget.refreshAfterDate = new Date(Date.now()+1000*60*refreshInt);
       widget.backgroundImage = await getImageFor('background');
       
@@ -208,22 +246,27 @@ async function createMediumDetailWidget() {
       updateInfo.centerAlignText();
 };
       
-      widget.addSpacer();
-          
-  let article = widget.addStack();
-      article.spacing = 7;
+      widget.addSpacer()
+    
+  let mainStack = widget.addStack()
+      mainStack.size = new Size(315, 105)
+      mainStack.topAlignContent()
   
-  let articleImage = (items[0].teaserImage == undefined) ? article.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : article.addImage(await loadImage(items[0].teaserImage.videowebl.imageurl));
-      articleImage.cornerRadius = 10;
+  let articleImage = (items[0].teaserImage == undefined) ? mainStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : mainStack.addImage(await loadImage(items[0].teaserImage.imageVariants["16x9-1920"]));
+      articleImage.cornerRadius = 15
+      articleImage.imageSize = new Size(160, 90)
       articleImage.url = shareURL;
       articleImage.applyFillingContentMode;
-
-  let articleInfo = article.addStack();
-      articleInfo.layoutVertically();
+      
+      mainStack.addSpacer(4)
+      
+  let articleInfo = mainStack.addStack();
+      articleInfo.layoutVertically()
+      articleInfo.size = new Size(144, 105)
 
   let articleRessort = articleInfo.addText(ressort.toUpperCase()+" ↗")
       articleRessort.textColor = Color.orange();
-      articleRessort.font = Font.semiboldMonospacedSystemFont(11);
+      articleRessort.font = Font.semiboldMonospacedSystemFont(10);
       articleRessort.url = "https://tagesschau.de/"+ressort
 
   let articleTitle = articleInfo.addText(breakingNews + items[0].title.replaceAll('+', '').trim());
@@ -233,18 +276,19 @@ async function createMediumDetailWidget() {
       
   let artFirstSentence = articleInfo.addText(items[0].firstSentence)
       artFirstSentence.font = Font.regularSystemFont(13);
-      artFirstSentence.minimumScaleFactor = 0.6
+      artFirstSentence.minimumScaleFactor = 0.7
       artFirstSentence.textColor = Color.white()
       artFirstSentence.shadowColor = Color.black()
-      artFirstSentence.shadowOffset = new Point(3, 3);
-      artFirstSentence.shadowRadius = 5;
+      artFirstSentence.lineLimit = 5
+      artFirstSentence.shadowOffset = new Point(3, 3)
+      artFirstSentence.shadowRadius = 5
 
   let articleDate = articleInfo.addText(df.string(new Date(items[0].date)) + " Uhr");
       articleDate.font = Font.italicSystemFont(8);
       articleDate.minimumScaleFactor = 0.8
       articleDate.textColor = Color.gray()
       
-      articleInfo.addSpacer()
+      widget.addSpacer()
 
 return widget
 };
@@ -366,7 +410,7 @@ async function createLargeDetailWidget() {
       imageStack.cornerRadius = 15;
       imageStack.spacing = 10;
       
-  let artImage = (items[0].teaserImage == undefined) ? imageStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : imageStack.addImage(await loadImage(items[0].teaserImage.videowebl.imageurl));
+  let artImage = (items[0].teaserImage == undefined) ? imageStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : imageStack.addImage(await loadImage(items[0].teaserImage.imageVariants["16x9-1920"]));
       artImage.applyFillingContentMode();
       artImage.url = items[0].shareURL;
     
@@ -527,7 +571,7 @@ async function createExtralargeDetailWidget() {
       imageStack.cornerRadius = 20;
       imageStack.spacing = 10;
 	
-  let artImage = (items[0].teaserImage == undefined) ? imageStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : imageStack.addImage(await loadImage(items[0].teaserImage.videowebl.imageurl));
+  let artImage = (items[0].teaserImage == undefined) ? imageStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : imageStack.addImage(await loadImage(items[0].teaserImage.imageVariants["16x9-1920"]));
 
 	   artImage.applyFillingContentMode();
   	   artImage.url = items[0].shareURL;
@@ -574,7 +618,7 @@ async function createLargeArticleView(widget, apiIdx) {
       article.topAlignContent();
  
   let breakingNews = (items[apiIdx].breakingNews == true) ? '⚡️ ' : '';
-  let img = (items[apiIdx].teaserImage == undefined) ? image.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : image.addImage(await loadImage(items[apiIdx].teaserImage.videowebl.imageurl));
+  let img = (items[apiIdx].teaserImage == undefined) ? image.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : image.addImage(await loadImage(items[apiIdx].teaserImage.imageVariants["16x9-1920"]));
       img.cornerRadius = 7 
       
       article.addSpacer(2);
@@ -625,7 +669,7 @@ async function createTable() {
       headerRow.isHeader = true
       headerRow.height = 50
       
-      iconCell = UITableCell.image(await getImageFor('appIconRounded2'));
+      iconCell = UITableCell.image(await getImageFor('appIconRounded'));
       iconCell.widthWeight = 3;
       headerRow.addCell(iconCell);
       
@@ -670,7 +714,7 @@ async function createTable() {
     
         ressort = (item.ressort == undefined) ? ressort = "Sonstiges" : ressort = item.ressort;
 
-        imageCell = (item.teaserImage == undefined) ? row.addImage(await getImageFor('Eilmeldung_NoThumbnailFound')) : row.addImageAtURL(item.teaserImage.videowebl.imageurl);
+        imageCell = (item.teaserImage == undefined) ? row.addImage(await getImageFor('Eilmeldung_NoThumbnailFound')) : row.addImageAtURL(item.teaserImage.imageVariants["16x9-1920"]);
         imageCell.widthWeight = 4;
     
     let titleCell = row.addText(`${breakingNews}${item.title.replaceAll('+', '').trim()}`, `${item.firstSentence}\n${ressort.toUpperCase()} | ${df.string(new Date(items[0].date))} Uhr`);
@@ -678,6 +722,22 @@ async function createTable() {
         
         table.addRow(row);
     };
+    
+    let creditFooter = new UITableRow()
+    creditFooter.height = 40
+    creditFooter.cellSpacing = 7 
+  
+    let creditFooterCellImg = UITableCell.imageAtURL('https://cdn-icons-png.flaticon.com/512/25/25231.png')
+    creditFooterCellImg.widthWeight = 1
+  
+    let creditFooterCellbutton = UITableCell.button("Created by iamrbn - Show on GitHub↗")
+    creditFooterCellbutton.widthWeight = 15
+    creditFooterCellbutton.onTap = () => Safari.openInApp("https://github.com/iamrbn/tagesschau-widget", false)
+   
+    creditFooter.addCell(creditFooterCellImg)
+    creditFooter.addCell(creditFooterCellbutton)
+    table.addRow(creditFooter)
+    
  return table;
 };
 
@@ -747,12 +807,15 @@ async function getImageFor(name) {
 };
 
 function notificationSchedulerVid() {
+    var nHeight = 315
+    if (Device.isPad()) nHeight = 315
   let n = new Notification();
       n.title = video.title;
       n.body = 'vom ' + df.string(new Date(video.date)) + ' Uhr';
       n.addAction("Video im Browser Öffnen ▶︎", video.streams.podcastvideom)
       n.identifier = video.externalId;
-      n.preferredContentHeight = 242;
+      n.preferredContentHeight = nHeight
+      n.deliveryDate = new Date(video.date)
       n.threadIdentifier = Script.name();
       n.scriptName = Script.name();
       n.userInfo = {"url":video.streams.podcastvideom};
@@ -762,64 +825,24 @@ function notificationSchedulerVid() {
 };
 
 //Create Notifications
-function notificationScheduler() {
-let imgURLStr = (items[0].teaserImage == undefined) ? null : items[0].teaserImage.videowebl.imageurl;
+function notificationScheduler(){
+ var nHeight = 211;
+ if (Device.isPad()) nHeight = 315;
+ let imgURLStr = (items[0].teaserImage == undefined) ? null : items[0].teaserImage.imageVariants["16x9-1920"]
  let n = new Notification();
-     n.title = items[0].title;
-     n.body = `${items[0].content[0].value.replace(/<[^>]*>/g, '')}\r${ressort.toUpperCase()} | ${df.string(new Date(items[0].date))} Uhr`;
-     n.addAction("Artikel im Browser Öffnen ↗", items[0].shareURL);
+     n.subtitle = items[0].title;
+     n.title = ressort.toUpperCase()+' | '+df.string(new Date(items[0].date)) + ' Uhr';
+     n.body = `${items[0].content[0].value.replace(/<[^>]*>/g, '')}`
+     n.addAction("Artikel Öffnen ↗", items[0].shareURL);
      n.identifier = items[0].sophoraId;
      n.userInfo = {"url":imgURLStr};
      n.threadIdentifier = Script.name();
-     n.preferredContentHeight = 211;
+     n.preferredContentHeight = nHeight//211;
      n.openURL = items[0].shareURL;
      n.scriptName = Script.name();
      n.schedule();
     
  nKey.set("current_title_idx0", items[0].title);
-};
-
-
-//Creates start menu
-async function presentMenu() {
-  ipadOpt = (Device.systemVersion() < 15 || !Device.isPad()) ? " ❌ (nur iPadOS15)" : ipadOpt = "";
-  let alert = new Alert();
-      alert.title = `${breakingNews} ${items[0].title}\n${items[0].topline}`;
-      alert.message = `[${ressort.toUpperCase()}]`
-      alert.addAction("Small")
-      alert.addAction("Medium")
-      alert.addAction("Medium Detail")
-      alert.addAction("Large")
-      alert.addAction("Large Detail")
-      alert.addAction("Extra Large"+ipadOpt)
-      alert.addAction("Extra Large Detail"+ipadOpt)
-      alert.addAction("Artikel Feed ↗")
-      alert.addAction("Kompletter Artikel ↗")
-      alert.addCancelAction("Cancel")
-  let idx = await alert.present();
-  if (idx == 0) {
-    widget = await createSmallWidget();
-    await widget.presentSmall();
-  } else if (idx == 1) {
-    widget = await createMediumWidget();
-    await widget.presentMedium();
-  } else if (idx == 2) {
-    widget = await createMediumDetailWidget();
-    await widget.presentMedium();
-  } else if (idx == 3) {
-    widget = await createLargeWidget();
-    await widget.presentLarge();
-  } else if (idx == 4) {
-    widget = await createLargeDetailWidget();
-    await widget.presentLarge();
-  } else if (idx == 5) {
-    widget = await createExtraLargeWidget();
-    await widget.presentExtraLarge();
-  } else if (idx == 6) {
-    widget = await createExtralargeDetailWidget();
-    await widget.presentExtraLarge();
-  } else if (idx == 7) QuickLook.present(await createTable());
-    else if (idx == 8) Safari.openInApp(shareURL, false);
 };
 
 //Checks if's there an server update on GitHub available
@@ -860,5 +883,4 @@ async function updateCheck(version) {
 //=======================================\\
 //============ END OF SCRIPT ============\\
 //=======================================\\
-
 
