@@ -12,6 +12,7 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 ## Features ✨
 
 ### Verfügbare widget größen
+- Mini (Rectangular Lockscreen Widget)
 - small
 - medium [detail & list view]
 - large [detail & list view]
@@ -40,7 +41,10 @@ Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben (_Grund Eil
 ### Feed Ansicht
 In der Feed Ansicht kann die Übersicht News oder Regional ausgewählt werden.
 
-<img title="Ressort Regional oder News Auswählen" src="Images/selectRessort.png" width="250"/>
+<p align="center">
+   <img title="Ressort Regional oder News Auswählen" src="Images/selectRessort.png" width="250"/>
+</p>
+
 Was Ausgewählt wurde wird später im Header angezeigt.
 Zudem zeigt der Feed u. a. farblich an ob ein Artikel eine Eilmeldung ist.
 Jedes einzelne Zeile ist klickbar und führt zum jeweiligen Artikel.
