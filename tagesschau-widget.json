@@ -1,4 +1,4 @@
 {
- "version": "1.2.1",
- "notes":"• Fehler beim Verarbeiten und Darstellen der Push-Notifications wurde behoben (Reguläre u. Podcasts).\n• Standard RefreshIntervall wurde von 30 auf 60 (min) erhöht - Grund: In einzelfällen gab es nach X anfragen keine Response der tagesschau-api mehr."
+ "version": "1.3",
+ "notes":"• Darstellungs Fehler/Error wurde gefixt\n• Rechteckiges Lockscreen Widget wurde hinzugefügt\n• Beim In App Lauf des Scripts wird nun direkt der Artikelfeed angezeigt - Das Auswahl Menu wurde entfernt\n• Artikelfeed hat die GitHub Repo als Link im Footer erhalten\n• Push Nachrichten wurden leicht von der Text Reihenfolge angepasst"
 }
