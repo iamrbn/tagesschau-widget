@@ -91,9 +91,9 @@ Widgets können mit den keywords "news" oder "regional" den jeweilgen Feed anzei
 <br>
 
 ### In App Lauf
-Beim starten des Scripts in der App wird als erstes ein Menu angezeigt.     
+~~Beim starten des Scripts in der App wird als erstes ein Menu angezeigt.     
 Dieses zwigt in der Headline den aktuellsten Titel, Topline + Ressort.     
-Zudem wird angezeigt ob das `extraLarge Widget` auf dem Gerät unterstützt wird. Voraussetzung ist ein iPad mit iPadOS **15** oder neuer.    
+Zudem wird angezeigt ob das `extraLarge Widget` auf dem Gerät unterstützt wird. Voraussetzung ist ein iPad mit iPadOS **15** oder neuer.~~ - wurde im release `1.3` entfernt!
 <p align="center">
 <img title="In App Menu iPhone" src="Images/iPhoneMenu.png" width="250"/> <img title="In App Menu iPad" src="Images/iPadMenu.png" width="755"/>
    </p>
