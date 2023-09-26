@@ -82,9 +82,6 @@ let feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' mögli
 
 ### Widget Parameter
 
-#### ` app `    
-~~Wenn im jeweiligen Widget Parametern der Begriff "app" eingetragen wird, werden beiträge aus diesem widget beim anklicken in der [tagesschau-app](https://apps.apple.com/de/app/tagesschau-nachrichten/id401644893) geöffnet. Standard ist der web-browser.~~ - wurde im release [`1.2`](https://github.com/iamrbn/tagesschau-widget/releases/tag/v1.2 "Release Notes") entfernt!
-
 #### ` detailview `    
 Beim eintragen des Keywords "detailview" wird der erste Artikel in der Detailansicht präsentiert.
 
@@ -94,15 +91,6 @@ Widgets können mit den keywords "news" oder "regional" den jeweilgen Feed anzei
 **Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon `;` (Bsp. `regional;detailview`)
 <br>
 
-### In App Lauf
-~~Beim starten des Scripts in der App wird als erstes ein Menu angezeigt.     
-Dieses zwigt in der Headline den aktuellsten Titel, Topline + Ressort.     
-Zudem wird angezeigt ob das `extraLarge Widget` auf dem Gerät unterstützt wird. Voraussetzung ist ein iPad mit iPadOS **15** oder neuer.~~ - wurde im release `1.3` entfernt!
-<p align="center">
-<img title="In App Menu iPhone" src="Images/iPhoneMenu.png" width="250"/> <img title="In App Menu iPad" src="Images/iPadMenu.png" width="755"/>
-   </p>
-
-<br>
 
 ### Erster Lauf
 Beim ersten Lauf wird im Scriptable Ordner ein neuer Ordner erstellt mit dem Namen "tagesschau-widget"
