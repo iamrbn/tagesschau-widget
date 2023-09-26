@@ -1,6 +1,3 @@
-// Variables used by Scriptable.
-// These must be at the very top of the file. Do not edit.
-// icon-color: blue; icon-glyph: globe-africa;
 
 // created by iamrbn → https://github.com/iamrbn/tagesschau-widget
 // Inspitiert durch u/trbn_hck (mehr dazu in der GitHub Repo)
@@ -27,7 +24,7 @@ let dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget')
 if (!fm.fileExists(dir)) fm.createDirectory(dir)
 let df = new DateFormatter()
     df.dateFormat = 'dd.MM.yy, HH:mm'
-let scriptVersion = '1.3'
+let scriptVersion = '1.3.1'
 let scriptURL = 'https://raw.githubusercontent.com/iamrbn/tagesschau-widget/main/tagesschau-widget.js'
 let endPoint = 'homepage'
 await saveImages()
@@ -106,10 +103,10 @@ async function createMediumLSW(){
     let sf = SFSymbol.named("globe.europe.africa.fill")
     sf.applyUltraLightWeight()
     let headerImg = headerStack.addImage(sf.image)
-    headerImg.imageSize = new Size(12, 12)
+    headerImg.imageSize = new Size(10, 10)
     headerImg.tintColor = Color.white();
     let headerTxt = headerStack.addText("tagesschau " + feedType.charAt(0).toUpperCase() + feedType.slice(1))
-    headerTxt.font = Font.boldSystemFont(12)
+    headerTxt.font = Font.boldSystemFont(9)
     
     w.addSpacer(0.5)
     
@@ -658,7 +655,7 @@ async function createTable() {
   let nAlert = new Alert();
       nAlert.title = 'Ressort Auswählen';
       nAlert.addAction('News');
-      nAlert.addAction('Regioanal');
+      nAlert.addAction('Regional');
       feedName = (await nAlert.present() == 0) ? "News" : "Regional";
   
   let table = new UITable();
@@ -767,7 +764,6 @@ function createErrorWidget() {
 
   return errorWidget;
 };
-
 
 
 //=======================================\\
@@ -883,4 +879,3 @@ async function updateCheck(version) {
 //=======================================\\
 //============ END OF SCRIPT ============\\
 //=======================================\\
-
