@@ -11,9 +11,9 @@ let enableNotifications = true //true: Neue Pushnachrichten erlabut, ansonsten '
 let tagesschau100sec = false //true für Push-Notifications bei neuer Folge
 
 //!!!!!!!!!!!! END OF CONFIG ZONE !!!!!!!!!!!!!!!/
-
 //===============================================
 //Änderungen ab hier auf eigene Gefahr!!!
+
 let nKey = Keychain
 let wParameter = await args.widgetParameter
 let nParameter = await args.notification
