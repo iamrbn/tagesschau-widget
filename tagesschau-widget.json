@@ -1,4 +1,4 @@
 {
- "version": "1.3",
- "notes":"• Darstellungs Fehler/Error wurde gefixt\n• Rechteckiges Lockscreen Widget wurde hinzugefügt\n• Beim In App Lauf des Scripts wird nun direkt der Artikelfeed angezeigt - Das Auswahl Menu wurde entfernt\n• Artikelfeed hat die GitHub Repo als Link im Footer erhalten\n• Push Nachrichten wurden leicht von der Text Reihenfolge angepasst"
+ "version": "1.3.1",
+ "notes":"• Schreibfehler im Ressort Pop-Up wurde entfernt (issue#3)"
 }
