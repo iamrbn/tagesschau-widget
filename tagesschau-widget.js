@@ -124,7 +124,7 @@ async function createMediumLSW(){
         w.url = shareURL
         w.refreshAfterDate = new Date(Date.now() + 1000*60* CONFIGS.DEVICES[Device.model()].refreshInt)
 
-	 let headerStack = w.addStack()
+    let headerStack = w.addStack()
         headerStack.spacing = 3
         headerStack.centerAlignContent()
     
@@ -173,7 +173,7 @@ async function createSmallWidget(){
       //headerImage.cornerRadius = 13
     
   if (uCheck.needUpdate){
-      updateInfo = w.addText(`Version ${uCheck.uC.version} is Available\nRun Script in App to update`)
+      updateInfo = w.addText(`Version ${uCheck.uC.version} ist verfügbar`, "Starte das Script im In-App-Modus zum updaten")
       updateInfo.font = Font.semiboldSystemFont(10)
       updateInfo.textColor = Color.red()
       updateInfo.shadowColor = Color.black()
@@ -229,7 +229,7 @@ async function createMediumWidget(){
       headerImage.applyFillingContentMode()
     
   if (uCheck.needUpdate){
-      updateInfo = w.addText(`Version ${uCheck.uC.version} is Available - Run Script in App to update`)
+      updateInfo = w.addText(`Version ${uCheck.uC.version} ist verfügbar`, "Starte das Script im In-App-Modus zum updaten")
       updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
       updateInfo.shadowColor = Color.black()
@@ -262,7 +262,7 @@ async function createMediumDetailWidget(){
       headerImage.applyFillingContentMode()
     
   if (uCheck.needUpdate){
-      updateInfo = w.addText(`Version ${uCheck.uC.version} is Available - Run Script in App to update`)
+      updateInfo = w.addText(`Version ${uCheck.uC.version} ist verfügbar`, "Starte das Script im In-App-Modus zum updaten")
       updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
       updateInfo.shadowColor = Color.black()
@@ -341,7 +341,7 @@ async function createLargeWidget(){
       headerImage.applyFillingContentMode()
   
   if (uCheck.needUpdate){
-      updateInfo = w.addText(`Version ${uCheck.uC.version} is Available - Run Script in App to update`)
+      updateInfo = w.addText(`Version ${uCheck.uC.version} ist verfügbar`, "Starte das Script im In-App-Modus zum updaten")
       updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
       updateInfo.shadowColor = Color.black()
@@ -380,7 +380,7 @@ async function createLargeDetailWidget(){
       headerImage.applyFillingContentMode()
     
   if (uCheck.needUpdate){
-      updateInfo = w.addText(`Version ${uCheck.uC.version} is Available - Run Script in App to update`)
+      updateInfo = w.addText(`Version ${uCheck.uC.version} ist verfügbar`, "Starte das Script im In-App-Modus zum updaten")
       updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
       updateInfo.shadowColor = Color.black()
@@ -472,7 +472,7 @@ async function createExtraLargeWidget(){
       headerImage.applyFillingContentMode()
           
   if (uCheck.needUpdate){
-      updateInfo = w.addText(`Version ${uCheck.uC.version} is Available - Starte Script im in App Modus zum updaten`)
+      updateInfo = w.addText(`Version ${uCheck.uC.version} ist verfügbar`, "Starte das Script im In-App-Modus zum updaten")
       updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
       updateInfo.shadowColor = Color.black()
@@ -522,7 +522,7 @@ async function createExtralargeDetailWidget(){
       headerImage.applyFillingContentMode()
           
   if (uCheck.needUpdate){
-      updateInfo = w.addText(`Version ${uCheck.uC.version} is Available - Starte Script im in App Modus zum updaten`)
+      updateInfo = w.addText(`Version ${uCheck.uC.version} ist verfügbar`, "Starte das Script im In-App-Modus zum updaten")
       updateInfo.font = Font.semiboldSystemFont(11)
       updateInfo.textColor = Color.red()
       updateInfo.shadowColor = Color.black()
@@ -651,7 +651,7 @@ async function createTable() {
         headerUpdate.isHeader = true
         headerUpdate.height = 45
       
-        headerUpdate.addText(`Version ${uCheck.uC.version} ist verfügbar`, "Starte das Script im in App Modus zum updaten")
+        headerUpdate.addText(`Version ${uCheck.uC.version} ist verfügbar`, "Starte das Script im In-App-Modus zum updaten")
         headerUpdate.textColor = Color.white()
         table.addRow(headerUpdate)
         plusIdx += 1
