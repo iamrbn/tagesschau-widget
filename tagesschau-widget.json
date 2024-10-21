@@ -1,4 +1,4 @@
 {
- "version": "1.3.1",
- "notes":"• Schreibfehler im Ressort Pop-Up wurde entfernt (issue#3)"
+ "version": 1.3.2,
+ "notes":"• API Endpoint im 'tagesschauModule' wurde angeglichen (issue #4).\n• Ein fehler bei dem das kleine Widget ein Error angezeigt hatte, wenn kein Thumbnail von der Taggeschau verfügbar war, wurde behoben (issue #5)."
 }
