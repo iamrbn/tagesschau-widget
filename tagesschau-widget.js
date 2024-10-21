@@ -44,7 +44,7 @@ let modulePath = fm.joinPath(dir, 'tagesschauModule.js')
 if (!fm.fileExists(modulePath)) await loadModule()
 if (!fm.isFileDownloaded(modulePath)) await fm.downloadFileFromiCloud(modulePath)
 let tModule = importModule(modulePath)
-let uCheck = await tModule.updateCheck(fm, modulePath, '1.3.2')
+let uCheck = await tModule.updateCheck(fm, modulePath, 1.4)
 await tModule.saveImages()
 let df = new DateFormatter()
     df.dateFormat = 'dd.MM.yy, HH:mm'
