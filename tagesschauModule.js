@@ -1,11 +1,10 @@
 
 //=========================================//
 //============ START OF MODULE ============//
-//=============== Version 0.8 =============//
+//=============== Version 1.0 =============//
 
-//Get datas from tagesschau API
 async function getFromAPI(feedRessort, apiEndpoint){
-  let items
+  let items;
   try {
     items = await new Request(`https://www.tagesschau.de/api2u/${apiEndpoint}/`).loadJSON()
     //log('https://www.tagesschau.de/api2u/homepage')
@@ -65,55 +64,106 @@ async function getImageFor(name){
 };
 
 
-async function createLargeArticleView(items, widget, apiIdx){
+async function createLargeArticleView(items, base, index){
  let df = new DateFormatter()
       df.dateFormat = 'dd.MM.yy, HH:mm'
       
-  if (items[apiIdx] == undefined) apiIdx = Math.floor(Math.random()*apiIdx)
+  if (items[index] == undefined) index = Math.floor(Math.random()* index)
 
-      widget.addSpacer(2)
-  let main = widget.addStack()
-      main.backgroundColor = new Color('#41414180')
-      main.cornerRadius = 7
-      main.spacing = 5
-      main.url = items[apiIdx].shareURL
+      base.addSpacer(2)
       
-  let image = main.addStack()
-         
-  let article = main.addStack()
-      article.layoutVertically()
-      article.topAlignContent()
- 
-  let breakingNews = (items[apiIdx].breakingNews == true) ? '⚡️ ' : ''
-  let img = (items[apiIdx].teaserImage == undefined) ? image.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : image.addImage(await
- loadImage(items[apiIdx].teaserImage.imageVariants["16x9-1920"]))
+  let mainStack = base.addStack()
+       mainStack.backgroundColor = new Color('#41414180')
+       mainStack.cornerRadius = 7
+       mainStack.spacing = 5
+       mainStack.url = items[index].shareURL
       
-      img.cornerRadius = 7
+  let imageStack = mainStack.addStack()
+           
+  let breakingNews = (items[index].breakingNews == true) ? '⚡️ ' : ''
+  let img = (items[index].teaserImage == undefined) ? imageStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : imageStack.addImage(await loadImage(items[index].teaserImage.imageVariants["16x9-1920"]))
+       img.cornerRadius = 7
       
-      article.addSpacer(2)
+ let textStack = mainStack.addStack()
+      textStack.layoutVertically()
+      textStack. centerAlignContent()
+
+       textStack.addSpacer(2)
       
-  if (items[apiIdx].ressort == undefined) items[apiIdx].ressort = 'Sonstiges'
+  let headerArt = textStack.addStack()
+       headerArt.spacing = 4
+       headerArt.centerAlignContent()
+      
+  if (items[index].ressort == undefined) items[index].ressort = 'Sonstiges'
   
-  let ressort = article.addText(items[apiIdx].ressort.toUpperCase())
-      ressort.textColor = Color.orange()
-      ressort.font = Font.semiboldMonospacedSystemFont(8)
+  let ressort = headerArt.addText(items[index].ressort.toUpperCase())
+       ressort.textColor = Color.orange()
+       ressort.font = Font.semiboldMonospacedSystemFont(8)
+       ressort.lineLimit = 1
+       ressort.minimumScaleFactor = 0.8
       
-  let title = article.addText(breakingNews + items[apiIdx].title.replaceAll('+', '').trim())
-      title.textColor = Color.white()
-      title.font = Font.boldMonospacedSystemFont(10)
-      title.minimumScaleFactor = 0.5
-      
-      //article.addSpacer()
-      
-  let date = article.addText(df.string(new Date(items[apiIdx].date))+" Uhr")
+ let date = headerArt.addText(df.string(new Date(items[index].date))+" Uhr")
       date.font = Font.italicSystemFont(7)
-      date.textOpacity = 0.5
+      date.textOpacity = 0.7
       date.lineLimit = 1
-      date.minimumScaleFactor = 0.7
+      date.minimumScaleFactor = 0.8
       date.textColor = Color.white()
       
-      main.addSpacer()
-      widget.addSpacer(2)
+  let title = textStack.addText(breakingNews + items[index].title.replaceAll('+', '').trim())
+       title.textColor = Color.white()
+       title.font = Font.boldMonospacedSystemFont(10)
+       title.minimumScaleFactor = 0.4
+       title.lineLimit = 3
+
+      mainStack.addSpacer()
+      base.addSpacer(2)
+};
+
+
+async function createArticleView(items, base, index){
+    let df = new DateFormatter()
+         df.dateFormat = 'dd.MM.yy, HH:mm'
+
+    if (items[index] == undefined) index = Math.floor(Math.random()* index)
+    let breakingNews = (items[index].breakingNews == true) ? '⚡️ ' : ''
+
+         base.addSpacer(2)
+
+    let mainStack = base.addStack()
+         mainStack.layoutVertically()
+         mainStack.setPadding(3, 3, 3, 3)
+         mainStack.backgroundColor = new Color('#41414180')
+         mainStack.cornerRadius = 7
+         mainStack.spacing = 2
+         mainStack.url = items[index].shareURL
+           
+    if (items[index].ressort == undefined) items[index].ressort = 'Sonstiges'
+  
+    let ressort = mainStack.addText(items[index].ressort.toUpperCase())
+         ressort.textColor = Color.orange()
+         ressort.font = Font.semiboldMonospacedSystemFont(6)
+         ressort.lineLimit = 1
+         //ressort.minimumScaleFactor = 0.5
+
+    let title = mainStack.addText(breakingNews + items[index].title.replaceAll('+', '').trim())
+         title.textColor = Color.white()
+         title.font = Font.boldMonospacedSystemFont(10)
+         title.minimumScaleFactor = 0.5
+         title.lineLimit = 4
+         
+         mainStack.addSpacer(2)
+
+    let img = (items[index].teaserImage == undefined) ? mainStack.addImage(await getImageFor("Eilmeldung_NoThumbnailFound")) : mainStack.addImage(await loadImage(items[index].teaserImage.imageVariants["16x9-1920"]))
+         img.cornerRadius = 7
+
+   let date = mainStack.addText(df.string(new Date(items[index].date))+" Uhr")
+        date.textColor = Color.white()
+        date.font = Font.italicSystemFont(7)
+        date.textOpacity = 0.7
+        date.lineLimit = 1
+        //date.minimumScaleFactor = 0.8
+
+        mainStack.addSpacer()
 };
 
 
@@ -210,7 +260,8 @@ module.exports = {
     getImageFor,
     loadImage,
     notificationSchedulerVid,
-    notificationScheduler
+    notificationScheduler,
+    createArticleView
 };
 
 
