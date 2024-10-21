@@ -67,8 +67,8 @@ if (nKey.get("current_title_idx0") != items[0].title && CONFIGS.DEVICES[Device.m
 if (nKey.get("current_podcast") != video.tracking[0].pdt && CONFIGS.DEVICES[Device.model()].tagesschau100sec) await tModule.notificationSchedulerVid(video)
 
 if (config.runsInApp){
-    w = await createSmallWidget()
-    w.presentSmall()
+    //w = await createSmallWidget()
+    //w.presentSmall()
     QuickLook.present(await createTable())
 } else if (config.runsInWidget || config.runsInAccessoryWidget){
   switch (widgetSize){
