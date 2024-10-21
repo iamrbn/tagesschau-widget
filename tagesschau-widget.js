@@ -5,11 +5,12 @@
 //!!!!!!!!!!! START OF CONFIG ZONE !!!!!!!!!!!!!
 
 var feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' möglich
+
 //Refresh Intervall der einzelnen Widgets in Minuten eingeben
 var CONFIGS = {
       DEVICES: {
         iPad: {
-        enableNotifications: false, //true: Neue Pushnachrichten erlabut, ansonsten 'false'
+        enableNotifications: false, //true: Neue Pushnachrichten erlabut; ansonsten 'false'
         tagesschau100sec: false, //true für Push-Notifications bei neuer Folge
         refreshInt: 60
         },
@@ -26,8 +27,8 @@ var CONFIGS = {
      }
 };
 
-//!!!!!!!!!!!! END OF CONFIG ZONE !!!!!!!!!!!!!!!/
-console.log(Device.model() + " refresh intervall: " + CONFIGS.DEVICES[Device.model()].refreshInt + ' min')
+//!!!!!!!!!!!! END OF CONFIG ZONE !!!!!!!!!!!!!!!
+//console.log(Device.model() + " refresh intervall: " + CONFIGS.DEVICES[Device.model()].refreshInt + ' min')
 //===============================================
 //Änderungen ab hier auf eigene Gefahr!!!
 
@@ -43,7 +44,7 @@ let modulePath = fm.joinPath(dir, 'tagesschauModule.js')
 if (!fm.fileExists(modulePath)) await loadModule()
 if (!fm.isFileDownloaded(modulePath)) await fm.downloadFileFromiCloud(modulePath)
 let tModule = importModule(modulePath)
-let uCheck = await tModule.updateCheck(fm, modulePath, 1.4)
+let uCheck = await tModule.updateCheck(fm, modulePath, '1.3.2')
 await tModule.saveImages()
 let df = new DateFormatter()
     df.dateFormat = 'dd.MM.yy, HH:mm'
@@ -66,9 +67,9 @@ if (nKey.get("current_title_idx0") != items[0].title && CONFIGS.DEVICES[Device.m
 if (nKey.get("current_podcast") != video.tracking[0].pdt && CONFIGS.DEVICES[Device.model()].tagesschau100sec) await tModule.notificationSchedulerVid(video)
 
 if (config.runsInApp){
-  QuickLook.present(await createTable())
-  w = await createLargeWidget()
-  w.presentLarge()
+    w = await createSmallWidget()
+    w.presentSmall()
+    QuickLook.present(await createTable())
 } else if (config.runsInWidget || config.runsInAccessoryWidget){
   switch (widgetSize){
     case "small": w = await createSmallWidget()
@@ -76,19 +77,17 @@ if (config.runsInApp){
     
     case "medium": w = await createMediumWidget(false)
         if(wParameter.toLowerCase().includes("detailview")) w = await createMediumDetailWidget()
-        else if(wParameter.toLowerCase().includes("doppio")) w = await createMediumWidget(true)
-        //else widget = await createMediumWidget()
+        else widget = await createMediumWidget()
       break
     
     case "large": w = await createLargeWidget(false)
         if(wParameter.toLowerCase().includes("detailview")) w = await createLargeDetailWidget()
-        else if(wParameter.toLowerCase().includes("doppio")) w = await createLargeWidget(true)
-       //else widget = await createLargeWidget()
+        else widget = await createLargeWidget()
       break
     
     case "extraLarge": w = await createExtraLargeWidget()
         if(wParameter.toLowerCase().includes("detailview")) w = await createExtralargeDetailWidget()
-        //else w = await createExtraLargeWidget()
+        else w = await createExtraLargeWidget()
       break
     
     case "accessoryCircular": w = await createSmallLSW()
@@ -101,7 +100,7 @@ if (config.runsInApp){
     }
   Script.setWidget(w)
 } else if (config.runsInNotification){
-    attatchmend = (nParameter.userInfo.url === null) ? await tModule.tModule.getImageFor("Eilmeldung_NoThumbnailFound") : nParameter.userInfo.url
+    attatchmend = (nParameter.userInfo.url === null) ? await tModule.getImageFor("Eilmeldung_NoThumbnailFound") : nParameter.userInfo.url
     QuickLook.present(attatchmend)
 };
 
@@ -161,17 +160,17 @@ async function createMediumLSW(){
 
 
 //--------- CREATE SMALL WIDGET ---------
-async function createSmallWidget() {
+async function createSmallWidget(){
   let w = new ListWidget()
       w.setPadding(7, 7, 7, 4)
       w.url = shareURL
       w.refreshAfterDate = new Date(Date.now() + 1000*60* CONFIGS.DEVICES[Device.model()].refreshInt)
-
-      w.backgroundImage = (items[0].teaserImage == undefined) ?await tModule.tModule.getImageFor("background") : await tModule.loadImage(items[0].teaserImage.imageVariants["16x9-1920"])
+      w.backgroundImage = (items[0].teaserImage == undefined) ? await tModule.getImageFor("background") : await tModule.loadImage(items[0].teaserImage.imageVariants["1x1-840"])
       
   let headerImage = w.addImage(await tModule.getImageFor('appIconRounded'))
-      headerImage.imageSize = new Size(27, 27)
-      headerImage.cornerRadius = 13
+      headerImage.imageSize = new Size(25, 25)
+      //headerImage.imageOpacity = 0.5
+      //headerImage.cornerRadius = 13
     
   if (uCheck.needUpdate){
       updateInfo = w.addText(`Version ${uCheck.uC.version} is Available\nRun Script in App to update`)
@@ -217,7 +216,7 @@ return w
 
 
 //--------- CREATE MEDIUM WIDGET ---------
-async function createMediumWidget(doppio) {
+async function createMediumWidget(){
   let w = new ListWidget()
       w.setPadding(10, 5, 10, 7)
       w.refreshAfterDate = new Date(Date.now() + 1000*60* CONFIGS.DEVICES[Device.model()].refreshInt)
@@ -240,30 +239,17 @@ async function createMediumWidget(doppio) {
 }
       
       w.addSpacer(2)
-     
-     
-  if (doppio){
-     let bodyStack = w.addStack()
-         bodyStack.spacing = 5
-  
-     let bodyLeft = bodyStack.addStack()
-         bodyLeft.layoutVertically()
-  
-     let bodyRight = bodyStack.addStack()
-         bodyRight.layoutVertically()
-     
-     for (i=0; i<2; i++) await tModule.createLargeArticleView(items, bodyLeft, i);
-     for (i=2; i<4; i++) await tModule.createLargeArticleView(items, bodyLeft, i);
-  } else {
-     for (i=0; i<2; i++) await tModule.createLargeArticleView(items, w, i);
-  }
+      
+  let mainStack = w.addStack()
+      
+  for (i=0; i<2; i++) await tModule.createLargeArticleView(items, w, i);
 
 return w
 };
 
 
 //--------- CREATE MEDIUM DETAIL WIDGET ---------
-async function createMediumDetailWidget() {
+async function createMediumDetailWidget(){
   let w = new ListWidget()
       w.setPadding(10, 7, 10, 7)
       w.refreshAfterDate = new Date(Date.now()+1000*60*CONFIGS.DEVICES[Device.model()].refreshInt)
@@ -334,7 +320,7 @@ return w
 
 
 // --------- CREATE LARGE WIDGET ---------
-async function createLargeWidget(doppio) {
+async function createLargeWidget(){
   let w = new ListWidget()
       w.setPadding(10, 10, 10, 10)
       w.refreshAfterDate = new Date(Date.now()+1000*60*CONFIGS.DEVICES[Device.model()].refreshInt)
@@ -364,23 +350,9 @@ async function createLargeWidget(doppio) {
       updateInfo.centerAlignText()
 }
   
-   w.addSpacer()
+   w.addSpacer(3)
 
-  if (doppio){
-     let bodyStack = w.addStack()
-         bodyStack.spacing = 5
-  
-     let bodyLeft = bodyStack.addStack()
-         bodyLeft.layoutVertically()
-  
-     let bodyRight = bodyStack.addStack()
-         bodyRight.layoutVertically()
-      
-     for (i=0; i<5; i++) await tModule.createLargeArticleView(items, bodyLeft, i)
-     for (i=5; i<10; i++) await tModule.createLargeArticleView(items, bodyRight, i)
-} else {
-     for (i=0; i<6; i++) await tModule.createLargeArticleView(items, w, i)
-}
+   for (i=0; i<6; i++) await tModule.createLargeArticleView(items, w, i)
 
 return w
 };
@@ -630,7 +602,7 @@ async function createExtralargeDetailWidget(){
 return w
 };
 
-
+// Tabelle 
 async function createTable() {
  if (Device.isPad()){
 	 cellWidth = 22
@@ -729,7 +701,7 @@ async function createTable() {
 
 
 //creates error wirdget
-function createErrorWidget(){
+async function createErrorWidget(){
   let bgGradient = new LinearGradient()
       bgGradient.locations = [0, 1]
       bgGradient.colors = [new Color('#2D65AE'), new Color('#19274C')]
