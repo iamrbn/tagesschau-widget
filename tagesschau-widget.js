@@ -4,31 +4,26 @@
 //==============================================
 //!!!!!!!!!!! START OF CONFIG ZONE !!!!!!!!!!!!!
 
-var feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' möglich
+let feedtype = 'regional' //Standard Feed Typ eingeben 'news' oder 'regional' möglich!
+let bundesland = 'baden-württemberg' // für alle BL bitte leere hochkommatas ('') verwenden; für mehrere BL diese bitte mit komma getrennt aneinander reihen!
 
-//Refresh Intervall der einzelnen Widgets in Minuten eingeben
+//Refresh Intervall der Widgets/Scripts in Minuten eingeben
 var CONFIGS = {
       DEVICES: {
-        iPad: {
-        enableNotifications: false, //true: Neue Pushnachrichten erlabut; ansonsten 'false'
-        tagesschau100sec: false, //true für Push-Notifications bei neuer Folge
+       iPad: {
+        enableNotifications: false, //true: Neue Pushnachrichten erlauben; ansonsten 'false'
+        tagesschau100sec: false, //true: für Pushnachrichten bei neuer Folge
         refreshInt: 60
-        },
-      iPhone: {
+       },
+       iPhone: {
         enableNotifications: true,
-        tagesschau100sec: false,
+        tagesschau100sec: true,
         refreshInt: 60
-        },
-      macBook: {
-        enableNotifications: false,
-        tagesschau100sec: false,
-        refreshInt: 60
-      }
+       }
      }
 };
 
 //!!!!!!!!!!!! END OF CONFIG ZONE !!!!!!!!!!!!!!!
-//console.log(Device.model() + " refresh intervall: " + CONFIGS.DEVICES[Device.model()].refreshInt + ' min')
 //===============================================
 //Änderungen ab hier auf eigene Gefahr!!!
 
@@ -44,31 +39,33 @@ let modulePath = fm.joinPath(dir, 'tagesschauModule.js')
 if (!fm.fileExists(modulePath)) await loadModule()
 if (!fm.isFileDownloaded(modulePath)) await fm.downloadFileFromiCloud(modulePath)
 let tModule = importModule(modulePath)
-let uCheck = await tModule.updateCheck(fm, modulePath, 1.4)
+let uCheck = await tModule.updateCheck(fm, modulePath, 1.5)
 await tModule.saveImages()
 let df = new DateFormatter()
     df.dateFormat = 'dd.MM.yy, HH:mm'
- 
-if (wParameter == null) wParameter = feedType
-else if (wParameter.toLowerCase().includes("regional")) feedType = "regional"
-else if (wParameter.toLowerCase().includes("news")) feedType = "news"
 
-var items = await tModule.getFromAPI(feedType, 'homepage')
-var channels = await tModule.getFromAPI('channels', 'channels')
-var video = channels.find(element => element.title == 'tagesschau in 100 Sekunden')
+let bulaCode = await tModule.getBundeslandCode(bundesland)
+
+if (wParameter == null) wParameter = feedtype
+else if (wParameter.toLowerCase().includes("regional")) feedtype = "regional"
+else if (wParameter.toLowerCase().includes("news")) feedtype = "news"
+
+if (CONFIGS.DEVICES[Device.model()].tagesschau100sec) video = await tModule.getVideosFromAPI('tagesschau in 100 Sekunden')
+var notificationArticle = await tModule.getFromHomepageAPI(bulaCode)
+var items = await tModule.getFromAPI(feedtype, bulaCode)
 var shareURL = items[0].shareURL
 var breakingNews = (items[0].breakingNews === true) ? '⚡️ ' : ''
 var ressort = (items[0].ressort == undefined) ? 'Sonstiges' : items[0].ressort
 
-if (!nKey.contains("current_title_idx0")) nKey.set("current_title_idx0", items[0].title)
+if (!nKey.contains("current_title_idx0")) nKey.set("current_title_idx0", notificationArticle.title)
 if (!nKey.contains("current_podcast")) nKey.set("current_podcast", video.tracking[0].pdt)
 //if (nKey.get("current_title_idx0") != items[0].title && enableNotifications) notificationScheduler()
-if (nKey.get("current_title_idx0") != items[0].title && CONFIGS.DEVICES[Device.model()].enableNotifications) await tModule.notificationScheduler(items, ressort, nKey)
-if (nKey.get("current_podcast") != video.tracking[0].pdt && CONFIGS.DEVICES[Device.model()].tagesschau100sec) await tModule.notificationSchedulerVid(video)
+if (nKey.get("current_title_idx0") != notificationArticle.title && CONFIGS.DEVICES[Device.model()].enableNotifications) await tModule.notificationScheduler(notificationArticle, ressort, nKey)
+if (nKey.get("current_podcast") != video.tracking[0].pdt && CONFIGS.DEVICES[Device.model()].tagesschau100sec) await tModule.notificationSchedulerVid(video, nKey)
 
 if (config.runsInApp){
-    //w = await createSmallWidget()
-    //w.presentSmall()
+    //w = await createLargeWidget()
+    //w.presentLarge()
     QuickLook.present(await createTable())
 } else if (config.runsInWidget || config.runsInAccessoryWidget){
   switch (widgetSize){
@@ -100,8 +97,9 @@ if (config.runsInApp){
     }
   Script.setWidget(w)
 } else if (config.runsInNotification){
-    attatchmend = (nParameter.userInfo.url === null) ? await tModule.getImageFor("Eilmeldung_NoThumbnailFound") : nParameter.userInfo.url
+    attatchmend = (nParameter.userInfo.thumbnail === null) ? await tModule.getImageFor("Eilmeldung_NoThumbnailFound") : nParameter.userInfo.thumbnail
     QuickLook.present(attatchmend)
+    //await tModule.getWebView(nParameter.userInfo.video)
 };
 
 
@@ -602,23 +600,40 @@ async function createExtralargeDetailWidget(){
 return w
 };
 
-// Tabelle 
+
+// CREATE TABLE 
 async function createTable() {
  if (Device.isPad()){
 	 cellWidth = 22
     cellWidth2 = 9
 	 rowWidth = 100
- } else if (Device.isPhone()){
+ } else if (Device.isPhone()){
     cellWidth = 12
     cellWidth2 = 9
     rowWidth = 90
  }
   
   let nAlert = new Alert()
-      nAlert.title = 'Ressort Auswählen'
+      nAlert.title = 'Feed Inhalt wählen'
       nAlert.addAction('News')
       nAlert.addAction('Regional')
-      feedName = (await nAlert.present() == 0) ? "News" : "Regional"
+      nAlert.addAction('Video')
+  var idx = await nAlert.present()
+  var feedName;
+  var items;
+  if (idx === 0){
+    feedName = 'News'
+    items = await tModule.getFromAPI(feedName.toLowerCase(), bulaCode)
+    
+  } else if (idx === 1){
+    feedName = 'Regional'
+    items = await tModule.getFromAPI(feedName.toLowerCase(), bulaCode)
+    
+  } else if (idx === 2){
+    feedName = 'Video'
+    items = await tModule.getVideosFromAPI(null)
+  }
+  //= (await nAlert.present() == 0) ? "News" : "Regional"
   
   let table = new UITable()
       table.showSeparators = true
@@ -636,7 +651,7 @@ async function createTable() {
       headerCell.widthWeight = 9
       headerRow.addCell(headerCell)
       
-      textCell = UITableCell.text(" " + feedName + " Feed")
+      textCell = UITableCell.text(feedName + " Feed ")
       textCell.titleFont = Font.boldSystemFont(15)
       textCell.titleColor = new Color('#07184C')
       textCell.widthWeight = cellWidth
@@ -657,13 +672,15 @@ async function createTable() {
         plusIdx += 1
   }
   
-  for (item of await tModule.getFromAPI(feedName.toLowerCase(), 'homepage')){
+  for (item of items){
     let row = new UITableRow()
         row.height = 120
         row.cellSpacing = 10
         row.onSelect = (idx) => {
           let item = items[idx-plusIdx]
-          Safari.openInApp(item.shareURL, false)
+          var vid = (item.streams.h264xl == undefined) ? item.tracking[1].c5.split(',')[1] : item.streams.h264xl;
+          if (feedName === 'Video') Safari.openInApp(vid, false)
+          else if (feedName == 'News' || 'Regional') Safari.openInApp(item.shareURL, false)
           }
         row.dismissOnSelect = false
      
@@ -671,11 +688,18 @@ async function createTable() {
      else breakingNews = ""
     
         ressort = (item.ressort == undefined) ? ressort = "Sonstiges" : ressort = item.ressort
+        
+        title = (item.title === '') ? 'tageschau24 Stream' : item.title
 
-        imageCell = (item.teaserImage == undefined) ? row.addImage(await tModule.getImageFor('Eilmeldung_NoThumbnailFound')) : row.addImageAtURL(item.teaserImage.imageVariants["16x9-1920"])
+        imageCell = (item.teaserImage == undefined) ? row.addImage(await tModule.getImageFor('Eilmeldung_NoThumbnailFound')) : row.addImageAtURL(item.teaserImage.imageVariants["16x9-256"])
         imageCell.widthWeight = 4
-    
-    let titleCell = row.addText(`${breakingNews}${item.title.replaceAll('+', '').trim()}`, `${item.firstSentence}\n${ressort.toUpperCase()} | ${df.string(new Date(items[0].date))} Uhr`)
+        
+    if (feedName === 'Video'){
+        titleCell = row.addText(`${title}`, `${df.string(new Date(item.date))}`)
+    } else if (feedName == 'News' || 'Regional'){
+        titleCell = row.addText(`${breakingNews}${item.title.replaceAll('+', '').trim()}`, `${item.firstSentence}\n${ressort.toUpperCase()} | ${df.string(new Date(item.date))} Uhr`)
+    }  
+        
         titleCell.widthWeight = cellWidth2
         
         table.addRow(row)
@@ -683,7 +707,7 @@ async function createTable() {
     
     let creditFooter = new UITableRow()
         creditFooter.height = 40
-        creditFooter.cellSpacing = 7 
+        creditFooter.cellSpacing = 7
   
     let creditFooterCellImg = UITableCell.imageAtURL('https://cdn-icons-png.flaticon.com/512/25/25231.png')
         creditFooterCellImg.widthWeight = 1
@@ -697,33 +721,6 @@ async function createTable() {
         table.addRow(creditFooter)
     
  return table
-};
-
-
-//creates error wirdget
-async function createErrorWidget(){
-  let bgGradient = new LinearGradient()
-      bgGradient.locations = [0, 1]
-      bgGradient.colors = [new Color('#2D65AE'), new Color('#19274C')]
-  let errorWidget = new ListWidget()
-      errorWidget.backgroundGradient = bgGradient
-
-  let title = errorWidget.addText('tagesschau')
-      title.font = Font.headline()
-      title.centerAlignText()
-
-      errorWidget.addSpacer(10)
-
-  let errTxt = errorWidget.addText('Es besteht keine Verbindung zum Internet')
-      errTxt.font = Font.semiboldMonospacedSystemFont(16)
-      errTxt.textColor = Color.red()
-
-  let errTxt2 = errorWidget.addText('Dieses Widget benötigt eine Verbindung zum Internet um funktionieren zu können!')
-      errTxt2.font = Font.regularRoundedSystemFont(14)
-      errTxt2.textColor = Color.red()
-      errTxt2.textOpacity = 0.8
-
-  return errorWidget
 };
 
 
