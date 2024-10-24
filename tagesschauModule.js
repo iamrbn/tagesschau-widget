@@ -1,13 +1,38 @@
-
 //=========================================//
 //============ START OF MODULE ============//
-//=============== Version 1.0 =============//
+//=============== Version 1.1 =============//
 
-async function getFromAPI(feedRessort, apiEndpoint){
+let blCodes = {
+    "BADEN-WÜRTTEMBERG": 1,
+    "BAYERN": 2,
+    "BERLIN": 3,
+    "BRANDENBURG": 4,
+    "BREMEN": 5,
+    "HAMBURG": 6,
+    "HESSEN": 7,
+    "MECKLENBURG-VORPOMMERN": 8,
+    "NIEDERSACHSEN": 9,
+    "NORDRHEIN-WESTFHALEN": 10,
+    "RHEINLAND-PFALZ": 11,
+    "SAARLAND": 12,
+    "SACHSEN": 13,
+    "SACHSEN-ANHALT": 14,
+    "SCHLESWIG-HOLSTEIN": 15,
+    "THÜRINGEN": 16
+};
+
+
+//Get datas from tagesschau News-API
+async function getFromAPI(feedtype, bundesland){
   let items;
   try {
-    items = await new Request(`https://www.tagesschau.de/api2u/${apiEndpoint}/`).loadJSON()
-    //log('https://www.tagesschau.de/api2u/homepage')
+      req = await new Request('https://www.tagesschau.de/api2u/news').loadJSON()
+      res = req['news']
+      if (feedtype == 'news'){
+        items = res.filter(item => [0].includes(item.regionId))
+    } else if (feedtype == 'regional'){
+        items = res.filter(item => bundesland.includes(item.regionId))
+    }
 } catch(err){
     console.error(err.message)
     errorWidget = await createErrorWidget()
@@ -15,10 +40,46 @@ async function getFromAPI(feedRessort, apiEndpoint){
     else if (config.runsInWidget) Script.setWidget(errorWidget)
     Script.complete()
   }
-  return items[feedRessort]
+  //console.warn('feedtype: '  + feedtype + '\n')
+  //console.log(items)
+  return items
 };
 
-//Loads Images from web
+
+//Get datas from tagesschau Video-API
+async function getVideosFromAPI(keyword){
+    let videos;
+    try {
+        req = await new Request('https://www.tagesschau.de/api2u/channels').loadJSON()
+        res = req['channels']
+        if (keyword == null) videos = res
+        else videos = res.find(element => element.title == keyword)
+    } catch(err){
+        console.error(err.message)
+    }
+    return videos
+};
+
+
+//Get datas from tagesschau Homepage-API
+async function getFromHomepageAPI(bundesland){
+    let arr = [];
+    let sortArr;
+    try {
+      req = await new Request('https://www.tagesschau.de/api2u/homepage').loadJSON()
+      res = req['regional']
+      item = res.filter(item => bundesland.includes(item.regionId))
+      arr = [req['news'][0], item[0]]
+      sortArr = arr.sort((a, b) => new Date(arr[0].date) - new Date(arr[1].date))[0];
+      //log(sortArr)
+    } catch(err){
+        console.error(err.message)
+    }
+    return sortArr
+};
+
+
+//Loads Images from given URL
 async function loadImage(url){
     let img;
     try {
@@ -31,7 +92,7 @@ async function loadImage(url){
 };
 
 
-//Saves Images from web
+//Saves Images from GitHub Repo
 async function saveImages(){
  fm = FileManager.iCloud()
  dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget')
@@ -53,7 +114,7 @@ Eilmeldung_NoThumbnailFound:"https://raw.githubusercontent.com/iamrbn/tagesschau
 };
 
 
-//Loads Images from iCloud
+//Loads Images from iCloud Drive
 async function getImageFor(name){
  fm = FileManager.iCloud()
  dir = fm.joinPath(fm.documentsDirectory(), 'tagesschau-widget')
@@ -64,6 +125,7 @@ async function getImageFor(name){
 };
 
 
+// Creates Article View of the Large Widget
 async function createLargeArticleView(items, base, index){
  let df = new DateFormatter()
       df.dateFormat = 'dd.MM.yy, HH:mm'
@@ -120,6 +182,8 @@ async function createLargeArticleView(items, base, index){
 };
 
 
+
+//Creates Article View of Widget
 async function createArticleView(items, base, index){
     let df = new DateFormatter()
          df.dateFormat = 'dd.MM.yy, HH:mm'
@@ -167,22 +231,31 @@ async function createArticleView(items, base, index){
 };
 
 
-//Create Notifications for Videos
-function notificationSchedulerVid(video){
+async function getWebView(str){
+    let wv = new WebView()
+         wv.loadURL(str)
+         wv.waitForLoad()
+         wv.present(false)
+};
+
+
+//Create Notifications of Videos
+function notificationSchedulerVid(video, nKey){
     let df = new DateFormatter()
-        df.dateFormat = 'dd.MM.yy, HH:mm'
-    var nHeight = 315
+        df.dateFormat = 'dd.MM.yy HH:mm'
+    var nHeight = 220
     if (Device.isPad()) nHeight = 315
   let n = new Notification()
       n.title = video.title
       n.body = 'vom ' + df.string(new Date(video.date)) + ' Uhr'
-      n.addAction("Video im Browser Öffnen ▶︎", video.streams.podcastvideom)
+      //n.addAction("Video im Browser Öffnen ▶︎", video.streams.h264xl, true)
+      n.openURL = video.streams.h264xl
       n.identifier = video.externalId
       n.preferredContentHeight = nHeight
       n.deliveryDate = new Date(video.date)
       n.threadIdentifier = Script.name()
       n.scriptName = Script.name()
-      n.userInfo = {"url":video.streams.podcastvideom}
+      n.userInfo = {"thumbnail":video.teaserImage.imageVariants["16x9-1920"]}
       n.schedule()
     
  nKey.set("current_podcast", video.tracking[0].pdt)
@@ -190,26 +263,65 @@ function notificationSchedulerVid(video){
 
 
 //Create Notifications
-function notificationScheduler(items, ressort, nKey){
+function notificationScheduler(item, ressort, nKey){
  let df = new DateFormatter()
-     df.dateFormat = 'dd.MM.yy, HH:mm'
+     df.dateFormat = 'dd.MM.yy HH:mm'
  var nHeight = 211
  if (Device.isPad()) nHeight = 315
- let imgURLStr = (items[0].teaserImage == undefined) ? null : items[0].teaserImage.imageVariants["16x9-1920"]
+ let imgURLStr = (item.teaserImage == undefined) ? null : item.teaserImage.imageVariants["16x9-1920"]
  let n = new Notification()
-     n.subtitle = items[0].title
-     n.title = ressort.toUpperCase()+' | '+df.string(new Date(items[0].date)) + ' Uhr'
-     n.body = `${items[0].content[0].value.replace(/<[^>]*>/g, '')}`
-     n.addAction("Artikel Öffnen ↗", items[0].shareURL)
-     n.identifier = items[0].sophoraId
-     n.userInfo = {"url":imgURLStr}
+     n.subtitle = item.title
+     n.title = ressort.toUpperCase()+' | '+df.string(new Date(item.date)) + ' Uhr'
+     n.body = `${item.content[0].value.replace(/<[^>]*>/g, '')}`
+     n.addAction("Artikel Öffnen ↗", item.shareURL)
+     n.identifier = item.sophoraId
      n.threadIdentifier = Script.name()
      n.preferredContentHeight = nHeight//211
-     n.openURL = items[0].shareURL
+     n.openURL = item.shareURL
      n.scriptName = Script.name()
+     n.userInfo = {"thumbnail":imgURLStr}
      n.schedule()
     
- nKey.set("current_title_idx0", items[0].title)
+ nKey.set("current_title_idx0", item.title)
+};
+
+
+//Get Code/Number of Bundesland
+async function getBundeslandCode(arr){
+    const keys = arr.split(',').map(key => key.trim())
+    const blCode = keys.map(key => {
+        const upperKey = key.toUpperCase()
+        return blCodes[upperKey] || null
+    })
+
+    return blCode
+};
+
+
+//Creates Error Widget
+async function createErrorWidget(){
+  let bgGradient = new LinearGradient()
+      bgGradient.locations = [0, 1]
+      bgGradient.colors = [new Color('#2D65AE'), new Color('#19274C')]
+  let errorWidget = new ListWidget()
+      errorWidget.backgroundGradient = bgGradient
+
+  let title = errorWidget.addText('tagesschau')
+      title.font = Font.headline()
+      title.centerAlignText()
+
+      errorWidget.addSpacer(10)
+
+  let errTxt = errorWidget.addText('Es besteht keine Verbindung zum Internet')
+      errTxt.font = Font.semiboldMonospacedSystemFont(16)
+      errTxt.textColor = Color.red()
+
+  let errTxt2 = errorWidget.addText('Dieses Widget benötigt eine Verbindung zum Internet um funktionieren zu können!')
+      errTxt2.font = Font.regularRoundedSystemFont(14)
+      errTxt2.textColor = Color.red()
+      errTxt2.textOpacity = 0.8
+
+  return errorWidget
 };
 
 
@@ -252,17 +364,24 @@ async function updateCheck(fm, modulePath, version) {
 };
 
 
+//Exports Functions
 module.exports = {
     getFromAPI,
     createLargeArticleView,
+    createErrorWidget,
     updateCheck,
     saveImages,
     getImageFor,
     loadImage,
     notificationSchedulerVid,
     notificationScheduler,
-    createArticleView
+    createArticleView,
+    getBundeslandCode,
+    getVideosFromAPI,
+    getWebView,
+    getFromHomepageAPI
 };
+
 
 
 //=========================================//
