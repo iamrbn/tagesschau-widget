@@ -14,14 +14,14 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 <img title="Lockscreen Widgets" src="Images/lockscreenWidgets.png" width="400" align="right">    
 
 
-### Verfügbare widget größen
+### Verfügbare Widget Typen
 
-- rund lockscreen (Circular Lockscreen Widget)
-- rechteckig lockscreen (Rectangular Lockscreen Widget)
-- small
-- medium [detail & list view]
-- large [detail & list view]
-- extra large [detail & list view] (nur iPadOS15 und höher)
+- Rund lockscreen (Circular Lockscreen Widget)
+- Rechteckig lockscreen (Rectangular Lockscreen Widget)
+- Small
+- Medium [detail & list view]
+- Large [detail & list view]
+- Extra-Large [detail & list view] (nur iPadOS15 und höher)
 
 <br>
 <br>
@@ -39,7 +39,7 @@ Bei den "listview" bzw. normalen widgets ist der komplette jeweilige "Stack" (_g
 <br>
 
 ### ++ Eilmeldung ++ No Thumbnail Found
-Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben (_Grund Eilmeldung_) so wird ein Platzhalter verwendet um eine Fehlermeldung zu vermeiden.
+Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben, so wird ein Platzhalter verwendet um eine Fehlermeldung zu vermeiden.
 <p align="center">
 <img title="Example No Thumbnail Found - Medium-Widget" src="Images/Eilmeldung_NoThumbnailFound_exampleMedium.PNG" width="450"/>
    </p>
@@ -47,7 +47,7 @@ Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben (_Grund Eil
 <br>
 
 ### Feed Ansicht
-In der Feed Ansicht kann die Übersicht News oder Regional ausgewählt werden.
+In der Feed Ansicht kann zwischen News, Regional & Video ausgewählt werden.
 
 <p align="center">
    <img title="Ressort Regional oder News Auswählen" src="Images/selectRessort.png" width="250"/>
@@ -55,7 +55,7 @@ In der Feed Ansicht kann die Übersicht News oder Regional ausgewählt werden.
 
 Was Ausgewählt wurde wird später im Header angezeigt.
 Zudem zeigt der Feed u. a. farblich an ob ein Artikel eine Eilmeldung ist.
-Jedes einzelne Zeile ist klickbar und führt zum jeweiligen Artikel.
+Jede einzelne Zeile ist klickbar und führt zum jeweiligen Artikel im In-App Browser.
 
 <p align="center">
 <img title="Feed Ansicht (News) iPhone" src="Images/FeedAnsichtiPhone.PNG" width="250"/> <img title="Feed Ansicht (Regional) iPad" src="Images/FeedAnsichtiPad.PNG" width="750"/>
@@ -64,13 +64,10 @@ Jedes einzelne Zeile ist klickbar und führt zum jeweiligen Artikel.
 
 <br>
 
-### Push Notifications => _Funktioniert für Videos nicht mehr_
-Es kann eingestellt werden ob du Nachrichten über Neue Meldungen vom Feed und neue Folgen von "tagesschau in 100 Sekunden" erhalten möchtest.
+### Push Notifications
+Es kann eingestellt werden ob du Nachrichten über Neue Meldungen und neue Folgen vom "tagesschau in 100 Sekunden" Podcast erhalten möchtest. Das ist pro Gerät einstellbar (_iPhone & iPad_).
 
-```JavaScript
-let enableNotifications = true //true: Neue Pushnachrichten erlabut, ansonsten 'false'
-let tagesschau100sec = true //true für Push-Notifications bei neuer Folge
-```
+
 <p align="center">
 <img title="Push Notification Feed" src="Images/PushNotificationFeed.PNG" width="300"/> <img title="Push Notification Tagesschau in 100 Sekunden" src="Images/PushNotificationTS100Sek.gif" width="300"/>
    </p>
@@ -82,21 +79,38 @@ Im Script können neben dem erlauben von Push Notifications auch den ungefähren
 ` news ` oder ` regional `
 
 ```javascript
-let refreshInt = 60 //Refresh Intervall der einzelnen Widgets in Minuten eingeben
-let feedType = 'news' //Standard Feed Typ eingeben 'news' oder 'regional' möglich
+let feedtype = 'regional' //Standard Feed Typ eingeben 'news' oder 'regional' möglich!
+let bundesland = 'baden-württemberg' // für alle BL bitte leere hochkommatas ('') verwenden; für mehrere BL diese bitte mit komma getrennt aneinander reihen!
+
+//Refresh Intervall der Widgets/Scripts in Minuten eingeben
+var CONFIGS = {
+      DEVICES: {
+       iPad: {
+        enableNotifications: false, //true: Neue Pushnachrichten erlauben; ansonsten 'false'
+        tagesschau100sec: false, //true: für Pushnachrichten bei neuer Folge
+        refreshInt: 60
+       },
+       iPhone: {
+        enableNotifications: true,
+        tagesschau100sec: true,
+        refreshInt: 60
+       }
+     }
+};
 ```
 
 <br>
 
 ### Widget Parameter
 
-#### ` detailview `    
-Beim eintragen des Keywords "detailview" wird der erste Artikel in der Detailansicht präsentiert.
+#### Detailview
+Beim eintragen des Keywords `detailview` wird der erste Artikel in der Detailansicht präsentiert.
 
-#### ` Ressort `
-Widgets können mit den keywords "news" oder "regional" den jeweilgen Feed anzeigen.
+#### Ressort
+Widgets können mit den keywords `news` oder `regional` den jeweilgen Feed anzeigen.
 
-**Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon `;` (Bsp. `regional;detailview`)
+**Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon ";"    
+Bsp. `regional;detailview`
 <br>
 
 
