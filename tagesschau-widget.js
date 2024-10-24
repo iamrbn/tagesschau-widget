@@ -5,14 +5,14 @@
 //!!!!!!!!!!! START OF CONFIG ZONE !!!!!!!!!!!!!
 
 let feedtype = 'regional' //Standard Feed Typ eingeben 'news' oder 'regional' möglich!
-let bundesland = 'baden-württemberg' // für alle BL bitte leere hochkommatas ('') verwenden; für mehrere BL diese bitte mit komma getrennt aneinander reihen!
+let bundesland = 'baden-württemberg'//'baden-württemberg' // für alle BL bitte leere hochkommatas ('') verwenden; für mehrere BL diese bitte mit komma getrennt aneinander reihen!
 
 //Refresh Intervall der Widgets/Scripts in Minuten eingeben
 var CONFIGS = {
       DEVICES: {
        iPad: {
-        enableNotifications: false, //true: Neue Pushnachrichten erlauben; ansonsten 'false'
-        tagesschau100sec: false, //true: für Pushnachrichten bei neuer Folge
+        enableNotifications: true, //true: Neue Pushnachrichten erlauben; ansonsten 'false'
+        tagesschau100sec: true, //true: für Pushnachrichten bei neuer Folge
         refreshInt: 60
        },
        iPhone: {
@@ -39,7 +39,7 @@ let modulePath = fm.joinPath(dir, 'tagesschauModule.js')
 if (!fm.fileExists(modulePath)) await loadModule()
 if (!fm.isFileDownloaded(modulePath)) await fm.downloadFileFromiCloud(modulePath)
 let tModule = importModule(modulePath)
-let uCheck = await tModule.updateCheck(fm, modulePath, 1.5)
+let uCheck = await tModule.updateCheck(fm, modulePath, 1.51)
 await tModule.saveImages()
 let df = new DateFormatter()
     df.dateFormat = 'dd.MM.yy, HH:mm'
@@ -60,8 +60,12 @@ var ressort = (items[0].ressort == undefined) ? 'Sonstiges' : items[0].ressort
 if (!nKey.contains("current_title_idx0")) nKey.set("current_title_idx0", notificationArticle.title)
 if (!nKey.contains("current_podcast")) nKey.set("current_podcast", video.tracking[0].pdt)
 //if (nKey.get("current_title_idx0") != items[0].title && enableNotifications) notificationScheduler()
-if (nKey.get("current_title_idx0") != notificationArticle.title && CONFIGS.DEVICES[Device.model()].enableNotifications) await tModule.notificationScheduler(notificationArticle, ressort, nKey)
-if (nKey.get("current_podcast") != video.tracking[0].pdt && CONFIGS.DEVICES[Device.model()].tagesschau100sec) await tModule.notificationSchedulerVid(video, nKey)
+if (CONFIGS.DEVICES[Device.model()].enableNotifications){
+  if (nKey.get("current_title_idx0") != notificationArticle.title) await tModule.notificationScheduler(notificationArticle, ressort, nKey)
+}
+if (CONFIGS.DEVICES[Device.model()].tagesschau100sec){
+  if (nKey.get("current_podcast") != video.tracking[0].pdt) await tModule.notificationSchedulerVid(video, nKey)
+}
 
 if (config.runsInApp){
     //w = await createLargeWidget()
