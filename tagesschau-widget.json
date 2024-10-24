@@ -1,4 +1,4 @@
 {
- "version": 1.4,
- "notes":"• API Endpoint im 'tagesschauModule' wurde angeglichen (issue #4).\n• Ein fehler bei dem das kleine Widget ein Error angezeigt hatte, wenn kein Thumbnail von der Taggeschau verfügbar war, wurde behoben (issue #5)."
+ "version": 1.5,
+ "notes":"• Auf Anfrage wurde die Möglichkeit hinzugefügt, ein oder mehrere Bundesländer für den Regional-Feed festzulegen.\n• Ausgewählte regional Nachrichten für das gesetzte Bundesland, werden nun miteinbezogen in die Pushnotifications.\n• Das Feature zur Wiedergabe des 'tageschau in 100sec' Podcasts in der Notification wurde angepasst bzw. gefixt.\n• Für den Artikelfeed wurde die Option 'Video' im Pop-Up-Dialog hinzugefügt.\n• Für das kleine Homescreen-Widget wird nun ein Hintergrundbild geladen, mit einer niedrigeren Auflösung, um das Bild zentriert darzustellen.\n• Im Artikel-Feed werden nun auch Bilder mit niedriger Auflösung verwendet, um die Lade Performace zu verbessern.\n• Allgemeine kleine Code Verbesserungen des Scripts & Moduls."
 }
