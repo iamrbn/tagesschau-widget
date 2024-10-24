@@ -1,6 +1,6 @@
 //=========================================//
 //============ START OF MODULE ============//
-//=============== Version 1.1 =============//
+//=============== Version 1.1.1 =============//
 
 let blCodes = {
     "BADEN-WÜRTTEMBERG": 1,
@@ -287,13 +287,17 @@ function notificationScheduler(item, ressort, nKey){
 
 
 //Get Code/Number of Bundesland
-async function getBundeslandCode(arr){
-    const keys = arr.split(',').map(key => key.trim())
-    const blCode = keys.map(key => {
-        const upperKey = key.toUpperCase()
-        return blCodes[upperKey] || null
-    })
-
+async function getBundeslandCode(bula){
+    if (bula === ''){
+        blCode = Object.values(blCodes)
+    } else {
+        keys = bula.split(',').map(key => key.trim())
+        var blCode = keys.map(key => {
+          const upperKey = key.toUpperCase()
+          return blCodes[upperKey] || null
+          })
+     }
+    log(blCode)
     return blCode
 };
 
