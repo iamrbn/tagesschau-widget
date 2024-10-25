@@ -250,7 +250,7 @@ function notificationSchedulerVid(video, nKey){
       n.body = 'vom ' + df.string(new Date(video.date)) + ' Uhr'
       //n.addAction("Video im Browser Öffnen ▶︎", video.streams.h264xl, true)
       n.openURL = video.streams.h264xl
-      n.identifier = video.externalId
+      n.identifier = 'tagesschau100Sec'//video.externalId
       n.preferredContentHeight = nHeight
       n.deliveryDate = new Date(video.date)
       n.threadIdentifier = Script.name()
