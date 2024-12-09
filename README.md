@@ -11,7 +11,7 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 
 ## Features ✨
 
-<img title="Lockscreen Widgets" src="Images/lockscreenWidgets.png" width="400" align="right">    
+<img title="Lockscreen Widgets" src="Images/lockscreenWidgets.png" width="500" align="right">    
 
 
 ### Verfügbare Widget Typen
@@ -69,7 +69,7 @@ Es kann eingestellt werden ob du Nachrichten über Neue Meldungen und neue Folge
 
 
 <p align="center">
-<img title="Push Notification Feed" src="Images/PushNotificationFeed.PNG" width="300"/> <img title="Push Notification Tagesschau in 100 Sekunden" src="Images/PushnotificationTS100Sec.PNG" width="314"/>
+<img title="Push Notification Feed" src="Images/PushNotificationFeed.png" width="300"/> <img title="Push Notification Tagesschau in 100 Sekunden" src="Images/PushnotificationTS100Sec.PNG" width="314"/>
    </p>
    
 <br>
@@ -126,10 +126,10 @@ iCloud Drive/
 │  │  ├─ appIcon.png
 │  │  ├─ appIconRounded.png
 │  │  ├─ background.png
-│  │  ├─ Eilmeldung_NoThumbnailFound.png
+│  │  ├─ placeholderThumbnail.png
 │  │  ├─ tagesschau_trademark_monochrLS.png
 ```
-<img title="header.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tagesschau_Logo_2015.svg/462px-Tagesschau_Logo_2015.svg.png" width="350"/> <img title="appIcon.png" src="https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/e4/53/54/e45354a1-b99f-8a00-2d1c-d260607c2ec0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.png" width="70"/> <img title="appIconRounded.png" src="Images/appIconRounded.png" width="70"/> <img title="background.png" src="Images/background.png" width="125"/> <img title="Eilmeldung_NoThumbnailFound.png" src="Images/Eilmeldung_NoThumbnailFound.png" width="125"/> <img title="tagesschau_trademark_monochrLS.png" src="Images/tagesschau_trademark_monochrLS.png" width="70"/>
+<img title="header.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tagesschau_Logo_2015.svg/462px-Tagesschau_Logo_2015.svg.png" width="350"/> <img title="appIcon.png" src="https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/e4/53/54/e45354a1-b99f-8a00-2d1c-d260607c2ec0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.png" width="70"/> <img title="appIconRounded.png" src="Images/appIconRounded.png" width="70"/> <img title="background.png" src="Images/background.png" width="125"/> <img title="placeholderThumbnail.png" src="Images/placeholderThumbnail.png" width="125"/> <img title="tagesschau_trademark_monochrLS.png" src="Images/tagesschau_trademark_monochrLS.png" width="70"/>
 
 <br>
 
