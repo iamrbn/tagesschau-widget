@@ -11,19 +11,17 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 
 ## Features ✨
 
-<img title="Lockscreen Widgets" src="Images/lockscreenWidgets.png" width="500" align="right">    
-
-
 ### Verfügbare Widget Typen
 
-- Rund lockscreen (Circular Lockscreen Widget)
-- Rechteckig lockscreen (Rectangular Lockscreen Widget)
+- Rund lockscreen (_Circular Lockscreen Widget_)
+- Rechteckig lockscreen (_Rectangular Lockscreen Widget_)
 - Small
 - Medium [detail & list view]
 - Large [detail & list view]
-- Extra-Large [detail & list view] (nur iPadOS15 und höher)
+- Extra-Large [detail & list view] (_nur iPadOS15 und höher_)
 
 <br>
+<img title="Lockscreen Widgets" src="Images/lockscreenWidgets.png" width="650" align="center">
 <br>
 <br>
 
@@ -38,7 +36,7 @@ Bei den "listview" bzw. normalen widgets ist der komplette jeweilige "Stack" (_g
 
 <br>
 
-### ++ Eilmeldung ++ No Thumbnail Found
+### Eilmeldung / Vorschau nicht Verfügbar
 Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben, so wird ein Platzhalter verwendet um eine Fehlermeldung zu vermeiden.
 <p align="center">
 <img title="Example No Thumbnail Found - Medium-Widget" src="Images/Eilmeldung_NoThumbnailFound_exampleMedium.PNG" width="450"/>
@@ -69,7 +67,7 @@ Es kann eingestellt werden ob du Nachrichten über Neue Meldungen und neue Folge
 
 
 <p align="center">
-<img title="Push Notification Feed" src="Images/PushNotificationFeed.png" width="300"/> <img title="Push Notification Tagesschau in 100 Sekunden" src="Images/PushnotificationTS100Sec.PNG" width="314"/>
+<img title="Push Notifications Overview" src="Images/pushNotificationOverview.png" width="1000"/>
    </p>
    
 <br>
