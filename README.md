@@ -77,24 +77,26 @@ Im Script können neben dem erlauben von Push Notifications auch den ungefähren
 ` news ` oder ` regional `
 
 ```javascript
-let feedtype = 'regional' //Standard Feed Typ eingeben 'news' oder 'regional' möglich!
-let bundesland = 'baden-württemberg' // für alle BL bitte leere hochkommatas ('') verwenden; für mehrere BL diese bitte mit komma getrennt aneinander reihen!
+let feedtype = 'news' // Standard Feed Typ eingeben 'news' oder 'regional' möglich!
+let bundesland = 'baden-württemberg' // 'baden-württemberg' // für alle BL bitte leere hochkommatas ('') verwenden; für mehrere BL diese bitte mit komma getrennt aneinander reihen!
+let background = 'tagesschauBackground05' // tagesschauBackground = classic; tagesschauBackground05 = abgedunkelt;
 
 //Refresh Intervall der Widgets/Scripts in Minuten eingeben
-var CONFIGS = {
+let CONFIGS = {
       DEVICES: {
        iPad: {
         enableNotifications: false, //true: Neue Pushnachrichten erlauben; ansonsten 'false'
-        tagesschau100sec: false, //true: für Pushnachrichten bei neuer Folge
-        refreshInt: 60
+        tagesschau100sec: true, //true: für Pushnachrichten bei neuer Folge
+        refreshInt: 30
        },
        iPhone: {
         enableNotifications: true,
         tagesschau100sec: true,
-        refreshInt: 60
+        refreshInt: 30
        }
      }
 };
+
 ```
 
 <br>
