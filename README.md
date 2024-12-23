@@ -48,7 +48,7 @@ Sollte es noch oder überhaupt kein Titelbild zu einem Artikel geben, so wird ei
 In der Feed Ansicht kann zwischen News, Regional & Video ausgewählt werden.
 
 <p align="center">
-   <img title="Ressort Regional oder News Auswählen" src="Images/selectRessort.png" width="250"/>
+   <img title="Ressort Regional oder News Auswählen" src="Images/selectRessort.png" width="400"/>
 </p>
 
 Was Ausgewählt wurde wird später im Header angezeigt.
@@ -126,10 +126,11 @@ iCloud Drive/
 │  │  ├─ appIcon.png
 │  │  ├─ appIconRounded.png
 │  │  ├─ tagesschauBackground.png
+│  │  ├─ tagesschauBackground05.png
 │  │  ├─ placeholderThumbnail.png
 │  │  ├─ tagesschau_trademark_monochrLS.png
 ```
-<img title="tagesschauHeader.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tagesschau_Logo_2015.svg/462px-Tagesschau_Logo_2015.svg.png" width="350"/> <img title="appIcon.png" src="https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/e4/53/54/e45354a1-b99f-8a00-2d1c-d260607c2ec0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.png" width="70"/> <img title="appIconRounded.png" src="Images/appIconRounded.png" width="70"/> <img title="tagesschauBackground.png" src="Images/tagesschauBackground.png" width="125"/> <img title="placeholderThumbnail.png" src="Images/placeholderThumbnail.png" width="125"/> <img title="tagesschau_trademark_monochrLS.png" src="Images/tagesschau_trademark_monochrLS.png" width="70"/>
+<img title="tagesschauHeader.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tagesschau_Logo_2015.svg/462px-Tagesschau_Logo_2015.svg.png" width="320"/> <img title="appIcon.png" src="https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/e4/53/54/e45354a1-b99f-8a00-2d1c-d260607c2ec0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.png" width="50"/> <img title="appIconRounded.png" src="Images/appIconRounded.png" width="50"/> <img title="tagesschauBackground.png" src="Images/tagesschauBackground.png" width="105"/> <img title="tagesschauBackground05.png" src="Images/tagesschauBackground05.png" width="105"/> <img title="placeholderThumbnail.png" src="Images/placeholderThumbnail.png" width="105"/> <img title="tagesschau_trademark_monochrLS.png" src="Images/tagesschau_trademark_monochrLS.png" width="50"/>
 
 <br>
 
