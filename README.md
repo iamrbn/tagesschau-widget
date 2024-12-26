@@ -103,14 +103,12 @@ let CONFIGS = {
 
 ### Widget Parameter
 
-#### Detailview
-Beim eintragen des Keywords `detailview` wird der erste Artikel in der Detailansicht präsentiert.
+1. Beim eintragen des Keywords `detailview` wird der erste Artikel in der Detailansicht präsentiert. Das gleiche gilt auch für den Parameter `fullscreen` - Hier wird der komplette Platz vom Widget verendet.
 
-#### Ressort
-Widgets können mit den keywords `news` oder `regional` den jeweilgen Feed anzeigen.
+1. Widgets können mit den keywords `news` oder `regional` den jeweilgen Feed anzeigen.
 
-**Wichtig:** Sollten beide optionen gewünscht sein so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon ";"    
-Bsp. `regional;detailview`
+**Wichtig:** Sollten beide optionen gewünscht sein, so sollten die jeweiligen Keywords getrennt werden d. h. durch z.B. ein Semicolon ";"    
+Bsp. `regional;fullscreen`
 <br>
 
 
