@@ -13,22 +13,27 @@ Unfortunately the [Repositorie](https://github.com/trbnhck/scriptable-scripts/tr
 
 ### Verfügbare Widget Typen
 
-- Rund lockscreen (_Circular Lockscreen Widget_)
-- Rechteckig lockscreen (_Rectangular Lockscreen Widget_)
+#### Ansichtstypen
+- "Listview" (_Standard, wenn keine ansicht in den Widgetparametern definiert wurde_)
+   - verfügbar für medium, large, extralarge
+- "detailview"
+   - verfügbar für medium, large, extralarge
+- "fullscreen"
+   - verfügbar für small, medium, large
+
+
+#### Verügbare Widgetgrößen
+- Rund Lockscreen (_Circular Lockscreen Widget_)
+- Rechteckig Lockscreen (_Rectangular Lockscreen Widget_)
 - Small
-- Medium [detail & list view]
-- Large [detail & list view]
-- Extra-Large [detail & list view] (_nur iPadOS15 und höher_)
+- Medium
+- Large
+- Extra-Large (_iPadOS15 und höher_)
 
 <br>
-<img title="Lockscreen Widgets" src="Images/lockscreenWidgets.png" width="650" align="center">
-<br>
-<br>
-
 
 ### Klickbare Elemente
-
-<img title="Clickable Elements" src="Images/clickableElements.png" width="1000"/>
+<img title="Lockscreen Widgets" src="Images/lockscreenWidgets.png" width="650" align="center"> <img title="Clickable Elements" src="Images/clickableElements.png" width="1000"/>
 
 Bei den "detailview" Widgets ist ausschließlich das Titelbild klickbar und führt zum entsprechenden Artikel.
 Zudem sind in den "detailview" Widgets die **Ressort** Tags Klickbar und führen zur entsprechenden Ressort Übersicht (_Ausgenonnem ist "Sonstiges"_)
