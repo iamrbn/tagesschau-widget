@@ -56,7 +56,7 @@ Zudem zeigt der Feed u. a. farblich an ob ein Artikel eine Eilmeldung ist.
 Jede einzelne Zeile ist klickbar und führt zum jeweiligen Artikel im In-App Browser.
 
 <p align="center">
-<img title="Feed Ansicht (News) iPhone" src="Images/FeedAnsichtiPhone.PNG" width="250"/> <img title="Feed Ansicht (Regional) iPad" src="Images/FeedAnsichtiPad.PNG" width="750"/>
+<img title="Feed Ansicht (Videos) iPhone & Feed Ansicht (Regional) iPad" src="Images/FeedAnsichtMockup.png" width="250"/>
    </p>
 
 
