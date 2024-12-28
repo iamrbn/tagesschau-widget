@@ -140,7 +140,7 @@ iCloud Drive/
 ### Selfupdate Funktion
 Das Script verfügt über eine Selbstupdate Funktion[^2]. Der User bekommt nach dem Script Update auf GitHub eine benachrichtigung das eine neue Version zur verfügung steht.
 <p align="center">
-<img title="Update Notification" src="Images/updateNotification_1.5_mac.png" width="600"/>
+<img title="Update Notification" src="Images/updateNotification1.6.png" width="600"/>
 </p>
 
 
